@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.AlercomAppActionBar"
+    tools:context=".ui.MainFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProfile"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/buttom_main"
+            android:text="Mi perfil"
+            app:icon="@drawable/profile"
+            app:iconSize="28pt" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReporto"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/buttom_main"
+            android:paddingStart="23dp"
+            android:text="Yo reporto"
+            app:icon="@drawable/sharing"
+            app:iconSize="23pt" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerAlertas"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/buttom_main"
+            android:paddingStart="23dp"
+            android:text="Ver alertas"
+            app:icon="@drawable/ic_baseline_pageview_24"
+            app:iconSize="23pt" />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/btnSalir"
+        app:icon="@android:drawable/ic_lock_power_off">
+
+    </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+
+</RelativeLayout>

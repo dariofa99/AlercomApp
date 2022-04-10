@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/MainFragment">
+
+
+    <fragment
+        android:id="@+id/MainFragment"
+        android:name="com.alercom.app.ui.MainFragment"
+        android:label="Menu"
+        tools:layout="@layout/main_fragment">
+
+
+        <action
+            android:id="@+id/action_MainFragment_to_AlertFragment"
+            app:destination="@id/EventFragment" />
+
+        <action
+            android:id="@+id/action_MainFragment_to_ListAlertFragment"
+            app:destination="@id/ListAlertFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/EventFragment"
+        android:name="com.alercom.app.ui.alerts.events.EventFragment"
+        android:label="Menu"
+        tools:layout="@layout/event_fragment">
+        <action
+            android:id="@+id/action_MainFragment_to_AlertFragment"
+            app:destination="@id/LocationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/LocationFragment"
+        android:name="com.alercom.app.ui.alerts.location.LocationFragment"
+        android:label="Location"
+        tools:layout="@layout/location_fragment">
+
+
+        <argument
+            android:name="eventTypeId"
+            app:argType="integer"
+            android:defaultValue="1" />
+        <argument
+            android:name="eventName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument android:name="eventDescription"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_LocationFragment_to_createAlert"
+            app:destination="@id/createAlert" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createAlert"
+        android:name="com.alercom.app.ui.alerts.CreateAlertFragment"
+        android:label="Create"
+        tools:layout="@layout/create_alert_fragment">
+
+
+        <argument
+            android:name="eventTypeId"
+            app:argType="integer"
+            app:nullable="false"
+            android:defaultValue="0" />
+        <argument
+            android:name="departmentId"
+            app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="townId"
+            app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="eventName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="eventDescription"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ListAlertFragment"
+        android:name="com.alercom.app.ui.alerts.list.ListAlertFragment"
+        android:label="Menu"
+        tools:layout="@layout/list_alert_fragment">
+        <action
+            android:id="@+id/action_ListAlertFragment_to_EditAlertFragment"
+            app:destination="@id/EditAlertFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EditAlertFragment"
+        android:name="com.alercom.app.ui.alerts.edit.EditAlertFragment"
+        android:label="Edit"
+        tools:layout="@layout/edit_alert_fragment">
+        <argument
+            android:name="alertId"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>
