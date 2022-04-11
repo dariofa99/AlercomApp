@@ -23,7 +23,7 @@ val cliente:OkHttpClient = OkHttpClient.Builder().apply {
 
 
 val retrofit =  Retrofit.Builder()
-    .baseUrl(BASE_ROOT)
+    .baseUrl(BASE_LOCAL_ROOT)
     .client(cliente)
     .addConverterFactory(GsonConverterFactory.create())
     .addCallAdapterFactory(CoroutineCallAdapterFactory())

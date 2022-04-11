@@ -2,7 +2,7 @@ package com.alercom.app.request
 
 import com.google.gson.annotations.SerializedName
 
-data class CreateAlert(
+data class CreateAlertRequest(
     @SerializedName("event_description"           ) val eventDescription: String? = null,
     @SerializedName("event_date"                  ) val eventDate: String?  = null,
     @SerializedName("event_place"                 ) val eventPlace: String?  = null,

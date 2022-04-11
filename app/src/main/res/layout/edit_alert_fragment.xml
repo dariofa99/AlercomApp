@@ -323,17 +323,16 @@
                         android:layout_height="200dp"
                         android:layout_marginTop="15dp"
                         android:paddingStart="@dimen/activity_horizontal_margin"
-                        android:src="@drawable/profile">
+                        android:src="@drawable/no_photo">
 
                     </ImageView>
 
                     <Button
-                        android:id="@+id/btnSaveAlert"
+                        android:id="@+id/btnUpdateAlert"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
-                        android:text="Enviar alerta">
-
+                        android:text="Actualizar alerta">
                     </Button>
 
                 </LinearLayout>

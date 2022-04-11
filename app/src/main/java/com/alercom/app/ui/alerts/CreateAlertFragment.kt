@@ -3,7 +3,6 @@ package com.alercom.app.ui.alerts
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +23,7 @@ import androidx.navigation.fragment.navArgs
 import com.alercom.app.MainActivity
 import com.alercom.app.data.model.Reference
 import com.alercom.app.databinding.CreateAlertFragmentBinding
-import com.alercom.app.request.CreateAlert
+import com.alercom.app.request.CreateAlertRequest
 import com.alercom.app.resources.DatePickerFragment
 import com.app.alercom.adapter.AffectsRangeSpinnerAdapter
 import java.io.File
@@ -120,7 +119,7 @@ class CreateAlertFragment  : Fragment() {
              //  _binding?.myLoader?.visibility = View.VISIBLE
              //   _binding?.loading?.visibility = View.VISIBLE
 
-                val newAlert = CreateAlert(
+                val newAlert = CreateAlertRequest(
                     eventDescription =  _binding?.eventDescription?.text.toString(),
                     eventDate = _binding?.eventDate?.text.toString(),
                     eventPlace = _binding?.eventPlace?.text.toString(),
@@ -136,13 +135,8 @@ class CreateAlertFragment  : Fragment() {
                     afectationsRangeId = _range?.id,
                     imageCompressed = "fsdf"
                 )
-                System.out.println(image)
-                viewModel.store(newAlert,image)
+               viewModel.store(newAlert,image)
             }
-
-
-
-
         }
     }
 

@@ -24,9 +24,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlercomApp"
         tools:targetApi="n">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_api_key"/>
+
         <activity
-
-
             android:launchMode="singleTop"
             android:name=".MainActivity"
             android:exported="false"

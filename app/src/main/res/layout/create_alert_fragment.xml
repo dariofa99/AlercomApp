@@ -352,6 +352,18 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="100dp"
+        android:id="@+id/btnOpenMaps"
+        app:icon="@android:drawable/ic_dialog_map"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="40dp"
         android:id="@+id/btnTakePhoto"
         app:icon="@android:drawable/ic_menu_camera"/>
