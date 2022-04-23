@@ -1,11 +1,13 @@
 package com.alercom.app.network
 
 import android.content.Context
+import com.alercom.app.response.auth.AuthUser
 
 class Prefs(val context: Context) {
     val SHARED_NAME = "acToken"
     val SHARED_TOKEN = "acToken"
     val SHARED_USERNAME = "userName"
+    val SHARED_AUTH :AuthUser? = null
 
     val storage = context.getSharedPreferences(SHARED_NAME,0)
 
@@ -29,6 +31,9 @@ class Prefs(val context: Context) {
         storage.edit().clear().apply()
     }
 
+   /* fun saveAuth(auth: AuthUser?){
+        //storage.edit().putString(SHARED_AUTH,auth).apply()
+    }*/
 
 }
 

@@ -13,10 +13,10 @@ class ListAlertViewModel(private val eventReportRepository: AlertRepository) : V
     private  val _alertsResult = MutableLiveData<ListAlertResult>()
     val listAlertResult: LiveData<ListAlertResult> = _alertsResult
 
-    fun index()  {
-        eventReportRepository.index(object : OnListAlertResult {
+    fun index(data: String?) {
+        eventReportRepository.index(data,object : OnListAlertResult {
             override fun success(alerts: List<Alert>?) {
-                System.out.println(alerts)
+
                 _alertsResult?.value = ListAlertResult(success = alerts)
             }
             override fun unautorize(errorResponse: ErrorResponse) {

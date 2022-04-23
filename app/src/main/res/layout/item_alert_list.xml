@@ -81,17 +81,18 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:minHeight="58dp"
                             android:id="@+id/lblDescription"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_alignParentLeft="true"
                             android:layout_toRightOf="@+id/iconRow"
+                            android:minHeight="58dp"
                             android:text="Esto es una prueba de"
                             android:textColor="@color/cardview_dark_background"
                             android:textSize="20sp">
 
                         </TextView>
+
 
                         <TextView
                             android:id="@+id/lblEventDate"
@@ -99,7 +100,9 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="right|bottom"
                             android:text="Mayo 5 - 2020"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            tools:ignore="RtlHardcoded" />
+
 
 
                     </LinearLayout>

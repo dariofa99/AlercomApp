@@ -67,6 +67,40 @@ class LoginRepository {
         })
     }
 
+    fun loginAnonimus(callback : OnAuthResponse) {
+
+        val service = retrofit.create<LoginService>(LoginService::class.java)
+        val call =  service.loginAnonimus()
+        call.enqueue(object: Callback<AuthResponse> {
+            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                if(response.code() == 200){
+                    response.body()?.accessToken?.let { prefs.saveToken(it) }
+                    prefs.saveUserName(response.body()?.authUser?.username)
+                    val resp = Result.Success(response)
+                    callback.auth(resp)
+                    setLoggedInUser(response)
+                }
+                if(response.code() == 400  ){
+                    val error = ErrorResponse("Error en las credenciales")
+                    callback.unautorize(error)
+                }
+                if(response.code() == 500 ){
+                    val error = ErrorResponse("Error en el servidor")
+                    callback.unautorize(error)
+                }
+
+
+            }
+
+            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+
+                val error = ErrorResponse("Error en el servidor")
+                callback.unautorize(error)
+            }
+
+        })
+    }
+
     private fun setLoggedInUser(authResponse: Response<AuthResponse>) {
         this.auth = authResponse
         // If user credentials will be cached in local storage, it is recommended it be encrypted

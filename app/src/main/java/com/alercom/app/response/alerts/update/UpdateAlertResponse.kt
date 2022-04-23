@@ -1,4 +1,4 @@
-package com.alercom.app.response.alerts.create
+package com.alercom.app.response.alerts.update
 
 
 import com.alercom.app.data.model.Alert

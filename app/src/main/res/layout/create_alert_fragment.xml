@@ -3,14 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:theme="@style/Theme.AlercomAppActionBar"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.alerts.CreateAlertFragment">
-
+    tools:context=".ui.alerts.create.CreateAlertFragment">
+    <include
+        android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
+        />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="55dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
@@ -56,6 +58,22 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="10dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/lAlertCategory"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundMode="outline"
+                        app:startIconDrawable="@drawable/ic_baseline_list_24">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/eventCategoryIdId"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Sel. Tipo de evento"
+                            android:inputType="none"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/lEventDescription"
@@ -141,20 +159,20 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="40dp"
-                            android:text="Personas:"
-                            android:textSize="20dp"></TextView>
+                            android:layout_marginStart="40dp"
+                            android:text="@string/personas"
+                            android:textSize="20sp"/>
 
                         <Switch
                             android:id="@+id/affectedPeople"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_gravity="right"
-                            android:layout_marginStart="@dimen/cardview_default_elevation">
+                            android:layout_marginStart="@dimen/cardview_default_elevation"
+                            tools:ignore="RtlHardcoded,UseSwitchCompatOrMaterialXml" />
 
-                        </Switch>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -163,7 +181,6 @@
                         android:orientation="horizontal">
 
                         <ImageView
-
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_gravity="right"
@@ -173,20 +190,19 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="40dp"
-                            android:text="Familias:"
-                            android:textSize="20dp"></TextView>
+                            android:layout_marginStart="40dp"
+                            android:text="@string/familias"
+                            android:textSize="20sp"/>
 
                         <Switch
                             android:id="@+id/affectedFamily"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_gravity="right"
-                            android:layout_marginStart="@dimen/cardview_default_elevation">
+                            android:layout_marginStart="@dimen/cardview_default_elevation"
+                            tools:ignore="RtlHardcoded,UseSwitchCompatOrMaterialXml" />
 
-                        </Switch>
                     </LinearLayout>
 
                     <LinearLayout
@@ -290,14 +306,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:boxBackgroundMode="outline"
-                        app:startIconDrawable="@drawable/list">
+                        app:startIconDrawable="@drawable/ic_baseline_list_24">
 
                         <AutoCompleteTextView
                             android:id="@+id/afectationsRangeId"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="Sel. Rango de afectaciones"
-                            android:inputType="none"></AutoCompleteTextView>
+                            android:inputType="none"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -354,7 +370,8 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="100dp"
         android:id="@+id/btnOpenMaps"
-        app:icon="@android:drawable/ic_dialog_map"/>
+       app:backgroundTint="@color/primary"
+        app:icon="@android:drawable/ic_menu_mylocation"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="match_parent"
@@ -367,4 +384,6 @@
         android:layout_marginBottom="40dp"
         android:id="@+id/btnTakePhoto"
         app:icon="@android:drawable/ic_menu_camera"/>
+
+
 </RelativeLayout>

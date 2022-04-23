@@ -4,35 +4,35 @@ package com.alercom.app.repositories
 
 import com.alercom.app.data.model.Reference
 import com.alercom.app.data.model.Town
-import com.alercom.app.response.references.departments.OnDepartmentsResponse
+import com.alercom.app.response.references.statics.OnStaticReferenceResponse
 import com.app.alercom.response.towns.OnTownResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.alercom.app.network.retrofit
-import com.alercom.app.response.references.affectsranges.AffectsRangeResponse
-import com.alercom.app.response.references.affectsranges.OnAffectsRangeResponse
-import com.alercom.app.response.references.departments.DepartmentsResponse
+import com.alercom.app.response.references.dynamic.DynamicReferenceResponse
+import com.alercom.app.response.references.dynamic.OnDynamicReferenceResponse
+import com.alercom.app.response.references.statics.StaticReferenceResponse
 import com.alercom.app.response.references.towns.TownResponse
 import com.alercom.app.services.ReferenceService
 
 
 class ReferenceRepository {
-    fun getDepartments(callback : OnDepartmentsResponse) {
+    fun getDepartments(callback : OnStaticReferenceResponse) {
 
         val service = retrofit.create<ReferenceService>(ReferenceService::class.java)
         val call =  service.getDepartments()
-        call.enqueue(object: Callback<DepartmentsResponse> {
+        call.enqueue(object: Callback<StaticReferenceResponse> {
             override fun onResponse(
-                call: Call<DepartmentsResponse>,
-                response: Response<DepartmentsResponse>
+                call: Call<StaticReferenceResponse>,
+                response: Response<StaticReferenceResponse>
             ) {
-                val reference : ArrayList<Reference>? = response.body()?.departments
+                val reference : ArrayList<Reference>? = response.body()?.references
                 if(response.code() == 200){
-                    callback.successList(reference)
+                    callback.success(reference)
                 }
             }
-            override fun onFailure(call: Call<DepartmentsResponse>, t: Throwable) {
+            override fun onFailure(call: Call<StaticReferenceResponse>, t: Throwable) {
 
             }
         })
@@ -57,21 +57,40 @@ class ReferenceRepository {
         })
     }
 
-    fun getAffectsRange(callback : OnAffectsRangeResponse) {
+    fun getAffectsRange(callback : OnStaticReferenceResponse) {
 
         val service = retrofit.create<ReferenceService>(ReferenceService::class.java)
         val call =  service.getAffectsRange()
-        call.enqueue(object: Callback<AffectsRangeResponse> {
+        call.enqueue(object: Callback<StaticReferenceResponse> {
             override fun onResponse(
-                call: Call<AffectsRangeResponse>,
-                response: Response<AffectsRangeResponse>
+                call: Call<StaticReferenceResponse>,
+                response: Response<StaticReferenceResponse>
             ) {
-                val reference : ArrayList<Reference>? = response.body()?.ranges
+                val reference : ArrayList<Reference>? = response.body()?.references
                 if(response.code() == 200){
                     callback.success(reference)
                 }
             }
-            override fun onFailure(call: Call<AffectsRangeResponse>, t: Throwable) {
+            override fun onFailure(call: Call<StaticReferenceResponse>, t: Throwable) {
+
+            }
+        })
+    }
+
+    fun getEventsCategories(callback : OnDynamicReferenceResponse) {
+        val service = retrofit.create<ReferenceService>(ReferenceService::class.java)
+        val call =  service.getEventsCategories()
+        call.enqueue(object: Callback<DynamicReferenceResponse> {
+            override fun onResponse(
+                call: Call<DynamicReferenceResponse>,
+                response: Response<DynamicReferenceResponse>
+            ) {
+                val reference : ArrayList<Reference>? = response.body()?.references
+                if(response.code() == 200){
+                    callback.success(reference)
+                }
+            }
+            override fun onFailure(call: Call<DynamicReferenceResponse>, t: Throwable) {
 
             }
         })

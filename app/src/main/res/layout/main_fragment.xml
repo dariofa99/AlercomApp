@@ -7,31 +7,43 @@
     android:theme="@style/Theme.AlercomAppActionBar"
     tools:context=".ui.MainFragment">
 
+    <include
+        android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
+        />
+    <ScrollView
+        android:layout_marginTop="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:orientation="vertical"
-        android:paddingLeft="60dp"
-        android:paddingRight="60dp">
+        android:paddingLeft="5dp"
+        android:paddingTop="55dp"
+        android:paddingRight="5dp">
+
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnProfile"
-            style="@style/Widget.MaterialComponents.Button"
+            android:textAlignment="textStart"
+            style="@style/Widget.MaterialComponents.Button.Icon"
             android:layout_width="match_parent"
-            android:layout_height="95dp"
+            android:layout_height="90dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="30dp"
             android:background="@drawable/buttom_main"
             android:text="Mi perfil"
+            android:textSize="23sp"
             app:icon="@drawable/profile"
             app:iconSize="28pt" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnReporto"
+            android:id="@+id/btnReport"
+            android:textAlignment="textStart"
+            android:textSize="23sp"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="95dp"
+            android:layout_height="90dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:background="@drawable/buttom_main"
             android:paddingStart="23dp"
@@ -40,21 +52,69 @@
             app:iconSize="23pt" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnVerAlertas"
+            android:id="@+id/btnViewMyAlerts"
+            android:textAlignment="textStart"
+            android:textSize="23sp"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="95dp"
+            android:layout_height="90dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:background="@drawable/buttom_main"
             android:paddingStart="23dp"
-            android:text="Ver alertas"
-            app:icon="@drawable/ic_baseline_pageview_24"
+            android:text="Mis alertas"
+            app:icon="@drawable/ic_baseline_emergency_share_24"
+            app:iconSize="23pt" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnViewAlerts"
+            android:textAlignment="textStart"
+            android:textSize="23sp"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/buttom_main"
+            android:paddingStart="23dp"
+            android:text="Alertas"
+            app:icon="@drawable/ic_baseline_crisis_alert_24"
             app:iconSize="23pt" />
 
 
-    </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnInstRoutes"
+            android:textAlignment="textStart"
+            android:textSize="19sp"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/buttom_main"
+            android:paddingStart="23dp"
+            android:text="Rutas institucionales"
+            app:icon="@drawable/ic_baseline_local_library_24"
+            app:iconSize="23pt" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDataProtection"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/buttom_main"
+            android:paddingStart="23dp"
+            android:text="@string/protecci_n_de_datos"
+            app:icon="@drawable/ic_baseline_save_24"
+            app:iconSize="23pt"
+            tools:ignore="RtlSymmetry" />
+
+
+
+    </LinearLayout>
+    </ScrollView>
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
@@ -63,7 +123,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:id="@+id/btnSalir"
         app:icon="@android:drawable/ic_lock_power_off">
 
     </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>

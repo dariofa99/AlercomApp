@@ -8,6 +8,8 @@ data class Alert(
     @SerializedName("event_description"           ) var eventDescription          : String? = null,
     @SerializedName("event_date"                  ) var eventDate                 : String? = null,
     @SerializedName("event_place"                 ) var eventPlace                : String? = null,
+    @SerializedName("latitude"                    ) var latitude                  : String? = null,
+    @SerializedName("longitude"                   ) var longitude                 : String? = null,
     @SerializedName("event_aditional_information" ) var eventAditionalInformation : String? = null,
     @SerializedName("affected_people"             ) var affectedPeople            : Int?    = null,
     @SerializedName("affected_family"             ) var affectedFamily            : Int?    = null,

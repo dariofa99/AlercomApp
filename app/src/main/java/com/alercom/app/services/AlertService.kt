@@ -2,9 +2,10 @@ package com.alercom.app.services
 
 
 import com.alercom.app.request.CreateAlertRequest
-import com.alercom.app.response.alerts.create.UpdateAlertResponse
+
 import com.alercom.app.response.alerts.edit.EditAlertResponse
 import com.alercom.app.response.alerts.list.ListAlertResponse
+import com.alercom.app.response.alerts.update.UpdateAlertResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -20,7 +21,7 @@ interface AlertService {
     @POST("api/v1/events")
     fun storeWithOuImage(@Body eventAlertRequest: CreateAlertRequest): Call<UpdateAlertResponse>
     @GET("api/v1/events")
-    fun index(): Call<ListAlertResponse>
+    fun index(@Query("data") data:String): Call<ListAlertResponse>
 
     @GET("api/v1/events/{alert_id}/edit")
     fun edit(@Path("alert_id") alert_id: Int?): Call<EditAlertResponse>

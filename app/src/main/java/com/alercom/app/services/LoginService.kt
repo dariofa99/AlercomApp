@@ -9,4 +9,7 @@ import retrofit2.http.POST
 interface LoginService {
     @POST("api/v1/login")
     fun login(@Body dataInicioSesion: JsonObject): Call<AuthResponse>
+
+    @POST("api/v1/login/anonimus")
+    fun loginAnonimus(): Call<AuthResponse>
 }

@@ -6,11 +6,15 @@
     android:theme="@style/Theme.AlercomAppActionBar"
     tools:context=".ui.alerts.list.ListAlertFragment">
 
+    <include
+        android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerListAlert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="55dp"
         />
 
 </FrameLayout>

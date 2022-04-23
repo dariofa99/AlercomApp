@@ -14,4 +14,6 @@ data class AuthUser(
     @SerializedName("updated_at"        ) var updatedAt       : String?           = null,
     @SerializedName("permissions"       ) var permissions     : ArrayList<String> = arrayListOf(),
     @SerializedName("roles"             ) var roles           : ArrayList<Roles>  = arrayListOf()
-)
+){
+
+}

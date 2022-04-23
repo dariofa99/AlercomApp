@@ -9,4 +9,13 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment ccccc</string>
+    <string name="data_protection">Esta es la información de proteccón de datos</string>
+    <string name="data_tratamiento">Esta es la información de tratamiento de datos</string>
+    <string name="personas">Personas:</string>
+    <string name="familias">Familias:</string>
+    <string name="textview">TextView</string>
+    <string name="mi_perfil">Mi perfil</string>
+    <string name="protecci_n_de_datos">Protección de datos</string>
 </resources>

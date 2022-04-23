@@ -20,16 +20,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alercom.app.MainActivity
 import com.alercom.app.R
+import com.alercom.app.adapter.TypeEventAdapter
 import com.alercom.app.data.model.Alert
+import com.alercom.app.data.model.EventType
 import com.alercom.app.data.model.Reference
 import com.alercom.app.databinding.EditAlertFragmentBinding
 import com.alercom.app.request.CreateAlertRequest
 import com.alercom.app.resources.DatePickerFragment
+import com.alercom.app.resources.MapViewFragment
+import com.alercom.app.resources.MapsActivity
 import com.app.alercom.adapter.AffectsRangeSpinnerAdapter
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
+import kotlinx.android.synthetic.main.edit_user_fragment.*
+import kotlinx.android.synthetic.main.loading.*
 import java.io.File
 
 class EditAlertFragment : Fragment() {
@@ -38,27 +46,30 @@ class EditAlertFragment : Fragment() {
         fun newInstance() = EditAlertFragment()
     }
 
-    private val args: EditAlertFragmentArgs by navArgs()
-    private var rangeAdapter :  AffectsRangeSpinnerAdapter? = null
+
     private lateinit var viewModel: EditAlertViewModel
     private var _binding: EditAlertFragmentBinding?  = null
     private val binding get() = _binding!!
+    private val args: EditAlertFragmentArgs by navArgs()
+    private var rangeAdapter :  AffectsRangeSpinnerAdapter? = null
     private var _range : Reference? = null
+    private var _eventType: EventType? = null
+    private var typeEventAdapter :  TypeEventAdapter? = null
     private var image :File? = null
     private var currentPhotoPath: String? = null
     var latestTmpUri : Uri? = null
     private val REQUEST_PERMISSION_CAMERA = 100
     private var alert : Alert? = null
+    private val RESULT_MAP = 2
+    private var latitude :Double? = null
+    private var longitude :Double? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = EditAlertFragmentBinding.inflate(inflater, container, false)
-
         return binding.root
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,12 +79,17 @@ class EditAlertFragment : Fragment() {
 
         viewModel.rangesResult.observe(this@EditAlertFragment, Observer {
             val eventResult = it ?: return@Observer
-
             if (eventResult.success != null) {
                 rangeAdapter = AffectsRangeSpinnerAdapter(requireContext(),eventResult.success) //{ eventType -> onClickListener(eventType)}
                 _binding?.afectationsRangeId?.setAdapter(rangeAdapter)
-
-                viewModel.index(args.alertId)
+                viewModel.edit(args.alertId)
+            }
+        })
+        viewModel.eventTypeResult.observe(this@EditAlertFragment, Observer {
+            val eventResult = it ?: return@Observer
+            if (eventResult.success != null) {
+                typeEventAdapter = TypeEventAdapter(requireContext(),eventResult.success) //{ eventType -> onClickListener(eventType)}
+                _binding?.eventCategoryIdId?.setAdapter(typeEventAdapter)
             }
         })
 
@@ -81,56 +97,68 @@ class EditAlertFragment : Fragment() {
             val eventResult = it ?: return@Observer
 
             if (eventResult.success != null) {
-
                  alert = eventResult.success
-                _binding?.eventTitle?.text = eventResult.success.eventType?.eventTypeName
-                _binding?.eventGeneralDescription?.text = eventResult.success.eventType?.eventTypeDescription
-                _binding?.eventDescription?.setText(eventResult.success.eventDescription)
-                _binding?.eventDate?.setText(eventResult.success.eventDate)
-                _binding?.eventPlace?.setText(eventResult.success.eventPlace)
-                when(eventResult.success.affectedPeople?.toString()){
+                _binding?.eventTitle?.text = alert?.eventType?.eventTypeName
+                _binding?.eventGeneralDescription?.text = alert?.eventType?.eventTypeDescription
+                _binding?.eventDescription?.setText(alert?.eventDescription)
+                _binding?.eventDate?.setText(alert?.eventDate)
+                _binding?.eventPlace?.setText(alert?.eventPlace)
+                latitude =  if(alert?.latitude != "null"){
+                                alert?.latitude?.toDouble()
+                            }else{
+                                0.0
+                             }
+
+                longitude = if(alert?.longitude != "null"){
+                    alert?.longitude?.toDouble()
+                }else{
+                    0.0
+                }
+
+                when(alert?.affectedPeople?.toString()){
                     "1" -> _binding?.affectedPeople?.isChecked = true
                     "0" -> _binding?.affectedPeople?.isChecked = false
                 }
-                when(eventResult.success.affectedAnimals?.toString()){
+                when(alert?.affectedAnimals?.toString()){
                     "1" -> _binding?.affectedAnimals?.isChecked = true
                     "0" -> _binding?.affectedAnimals?.isChecked = false
                 }
-                when(eventResult.success.affectedInfrastructure?.toString()){
+                when(alert?.affectedInfrastructure?.toString()){
                     "1" -> _binding?.affectedInfrastructure?.isChecked = true
                     "0" -> _binding?.affectedInfrastructure?.isChecked = false
                 }
-                when(eventResult.success.affectedLivelihoods?.toString()){
+                when(alert?.affectedLivelihoods?.toString()){
                     "1" -> _binding?.affectedLivelihoods?.isChecked = true
                     "0" -> _binding?.affectedLivelihoods?.isChecked = false
                 }
-                when(eventResult.success.affectedFamily?.toString()){
+                when(alert?.affectedFamily?.toString()){
                     "1" -> _binding?.affectedFamily?.isChecked = true
                     "0" -> _binding?.affectedFamily?.isChecked = false
                 }
-                _binding?.eventAditionalInformation?.setText(eventResult.success?.eventAditionalInformation)
-                _binding?.afectationsRangeId?.setText(eventResult.success.affectationRange?.referenceName.toString()!!,false)
-                _range = eventResult.success.affectationRange
-                if(eventResult.success.files?.size!! > 0){
+                _binding?.eventAditionalInformation?.setText(alert?.eventAditionalInformation)
+                _binding?.afectationsRangeId?.setText(alert?.affectationRange?.referenceName.toString()!!,false)
+                _binding?.eventCategoryIdId?.setText(alert?.eventType?.eventTypeName.toString()!!,false)
+                _range = alert?.affectationRange
+                _eventType = alert?.eventType
+                if(alert?.files?.size!! > 0){
                     Picasso.with(context)
-                        .load(eventResult.success.files?.get(0)?.realPath)
+                        .load(alert?.files?.get(0)?.realPath)
                         .resize(250, 200)
                         .centerCrop()
                         .into(_binding?.eventPhoto)
                 }else{
                     Picasso.with(context).load(R.drawable.no_photo).into(_binding?.eventPhoto);
                 }
-
+                _binding?.loader.apply { myLoader.visibility = View.GONE }
             }
         })
 
         viewModel.alertUpdateResult.observe(this@EditAlertFragment, Observer {
             val alertUpdateResult = it ?: return@Observer
             if (alertUpdateResult.success != null) {
+                _binding?.loader.apply { myLoader.visibility = View.GONE }
                 showMessage("Alerta actualizada con éxito")
-               // val intent = Intent(requireContext(), MainActivity::class.java)
-               // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
-               // startActivity(intent)
+                findNavController().navigateUp()
             }
         })
 
@@ -138,12 +166,23 @@ class EditAlertFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding?.toolbar?.apply {
+            textTooblar.text = "Actualizando alerta"
+            toolbar.btn_Back.setOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
+        _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
         viewModel.getAffectsRange()
+        viewModel.getEventTypes(args.categoryId)
 
         _binding?.afectationsRangeId?.onItemClickListener = AdapterView.OnItemClickListener {
                 parent, view, position, id ->
-            System.out.println(position)
             _range = rangeAdapter?.getItem(position)
+        }
+        _binding?.eventCategoryIdId?.onItemClickListener = AdapterView.OnItemClickListener {
+                parent, view, position, id ->
+            _eventType = typeEventAdapter?.getItem(position)
         }
         _binding?.btnTakePhoto?.setOnClickListener{
             checkPermissionCamera()
@@ -152,11 +191,19 @@ class EditAlertFragment : Fragment() {
             showDatePickerDialog()
         }
 
+        _binding?.btnOpenMaps?.setOnClickListener{
+            val intent = Intent(requireContext(), MapsActivity::class.java)
+            intent.putExtra("latitude",latitude)
+            intent.putExtra("longitude",longitude)
+            intent.putExtra("address",alert?.eventPlace)
+            setMapsValue.launch(intent)
+
+        }
+
         _binding?.btnUpdateAlert?.setOnClickListener{
 
             if(validateForm()) {
-                //  _binding?.myLoader?.visibility = View.VISIBLE
-                //   _binding?.loading?.visibility = View.VISIBLE
+                _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
 
                 val newAlert = CreateAlertRequest(
                     eventDescription =  _binding?.eventDescription?.text.toString(),
@@ -168,23 +215,17 @@ class EditAlertFragment : Fragment() {
                     affectedAnimals = _binding?.affectedAnimals?.isChecked,
                     affectedInfrastructure = _binding?.affectedInfrastructure?.isChecked,
                     affectedLivelihoods = _binding?.affectedLivelihoods?.isChecked,
-                    eventTypeId = alert?.eventTypeId,
+                    eventTypeId = _eventType?.id,
                     townId = alert?.townId,
-                    statusId = 16,
+                    statusId = alert?.statusId,
                     afectationsRangeId = _range?.id,
-                    imageCompressed = "fsdf"
+                    latitude = latitude,
+                    longitude = longitude
                 )
-
-                System.out.println("Aquie  el response $newAlert")
-
                 viewModel.update(alert?.id!!,newAlert,image)
 
             }
         }
-
-
-
-
     }
 
     private fun getNavController(): NavController?{
@@ -197,6 +238,18 @@ class EditAlertFragment : Fragment() {
                 _binding?.eventPhoto?.setImageURI(uri)
 
             }
+        }
+    }
+
+    private val setMapsValue = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
+        if (activityResult.resultCode == RESULT_MAP) {
+            val address = activityResult.data?.getStringExtra(MapViewFragment.ADDRESS)
+            latitude = activityResult.data?.getDoubleExtra(MapViewFragment.LATITUDE,0.0)
+            longitude = activityResult.data?.getDoubleExtra(MapViewFragment.LONGITUDE,0.0)
+            _binding?.eventPlace?.setText("$address")
+
+        }else{
+
         }
     }
 

@@ -16,5 +16,6 @@ data class CreateAlertRequest(
     @SerializedName("town_id"                     ) val townId: Int?     = null,
     @SerializedName("status_id"                   ) val statusId: Int?     = null,
     @SerializedName("afectations_range_id"        ) val afectationsRangeId: Int?     = null,
-    @SerializedName("image_compressed"            ) val imageCompressed: String?     = null,
+    @SerializedName("latitude"                )     val latitude: Double?     = null,
+    @SerializedName("longitude"               )     val longitude: Double?     = null
 )

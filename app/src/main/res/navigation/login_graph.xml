@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_graph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.alercom.app.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_createUserFragment"
+            app:destination="@id/createUserFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createUserFragment"
+        android:name="com.alercom.app.ui.user.create.CreateUserFragment"
+        android:label="create_user_fragment"
+        tools:layout="@layout/create_user_fragment" />
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.alercom.app.ui.alerts.create.categories.EventCategoryFragment"
+        android:label="event_fragment"
+        tools:layout="@layout/event_category_fragment" />
+</navigation>

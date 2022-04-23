@@ -10,30 +10,31 @@ import retrofit2.Response
 import java.io.File
 import com.alercom.app.network.retrofit
 import com.alercom.app.request.CreateAlertRequest
-import com.alercom.app.response.alerts.create.UpdateAlertResponse
+
 import com.alercom.app.response.alerts.create.OnUpdateAlertResult
 import com.alercom.app.response.alerts.edit.EditAlertResponse
 import com.alercom.app.response.alerts.edit.OnEditAlertResult
 import com.alercom.app.response.alerts.list.ListAlertResponse
 import com.alercom.app.response.alerts.list.OnListAlertResult
+import com.alercom.app.response.alerts.update.UpdateAlertResponse
 import com.alercom.app.services.AlertService
 
 
 class AlertRepository {
 
-    fun index(callback : OnListAlertResult) {
+    fun index(data: String?, callback: OnListAlertResult) {
         val service = retrofit.create<AlertService>(AlertService::class.java)
-        val call =  service.index()
+        val call =  service.index(data!!)
         call.enqueue(object: Callback<ListAlertResponse> {
             override fun onResponse(
                 call: Call<ListAlertResponse>,
                 response: Response<ListAlertResponse>
             ) {
-                System.out.println("Aqui si ${response.body()?.alerts}")
 
-                val alerts : ArrayList<Alert>? = response.body()?.alerts
+
+                val alerts : ArrayList<Alert>? = response.body()?.events
                 if(response.code() == 200){
-                    System.out.println("Aqui si ${response.body()?.alerts}")
+                    System.out.println("Aqui si ${response.body()?.events}")
                     callback.success(alerts)
                 }
             }
@@ -83,7 +84,7 @@ class AlertRepository {
                 call: Call<EditAlertResponse>,
                 response: Response<EditAlertResponse>
             ) {
-                callback.success(response.body()?.alert)
+                callback.success(response.body()?.event)
             }
 
             override fun onFailure(call: Call<EditAlertResponse>, t: Throwable) {
@@ -98,8 +99,8 @@ class AlertRepository {
         val service = retrofit.create<AlertService>(AlertService::class.java)
         System.out.println(eventReport)
 
-        call = if(imageFile!=null){
-            val requestBody : RequestBody = RequestBody.create(MediaType.parse("image/*"),imageFile)
+   call = if(imageFile!=null){
+           val requestBody : RequestBody = RequestBody.create(MediaType.parse("image/*"),imageFile)
             val map = setMapData(eventReport)
             val file = MultipartBody.Part.createFormData("image_event",imageFile?.name,requestBody)
             service.update(id,map,file)
@@ -154,6 +155,8 @@ class AlertRepository {
         map["affected_animals"] = createPartFromString(eventReport?.affectedAnimals.toString())
         map["affected_infrastructure"] = createPartFromString(eventReport?.affectedInfrastructure.toString())
         map["affected_livelihoods"] = createPartFromString(eventReport?.affectedLivelihoods.toString())
+        map["latitude"] = createPartFromString(eventReport?.latitude.toString())
+        map["longitude"] = createPartFromString(eventReport?.longitude.toString())
 
         return map
     }

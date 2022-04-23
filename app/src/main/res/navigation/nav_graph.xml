@@ -7,6 +7,15 @@
 
 
     <fragment
+        android:id="@+id/listAlertFragment"
+        android:name="com.alercom.app.ui.alerts.list.ListAlertFragment"
+        android:label="Menu"
+        tools:layout="@layout/list_alert_fragment">
+        <action
+            android:id="@+id/action_listAlertFragment_to_showEventFragment"
+            app:destination="@id/showEventFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/MainFragment"
         android:name="com.alercom.app.ui.MainFragment"
         android:label="Menu"
@@ -18,16 +27,29 @@
             app:destination="@id/EventFragment" />
 
         <action
-            android:id="@+id/action_MainFragment_to_ListAlertFragment"
-            app:destination="@id/ListAlertFragment" />
+            android:id="@+id/action_MainFragment_to_ListMyAlertFragment"
+            app:destination="@id/ListMyAlertFragment" />
+        <action
+            android:id="@+id/action_MainFragment_to_editUserFragment"
+            app:destination="@id/editUserFragment" />
+        <action
+            android:id="@+id/action_MainFragment_to_dataProtectionFragment"
+            app:destination="@id/dataProtectionFragment" />
+        <action
+            android:id="@+id/action_MainFragment_to_institutionalRouteFragment"
+            app:destination="@id/institutionalRouteFragment" />
+        <action
+            android:id="@+id/action_MainFragment_to_listAlertFragment"
+            app:destination="@id/listAlertFragment" />
+
 
     </fragment>
 
     <fragment
         android:id="@+id/EventFragment"
-        android:name="com.alercom.app.ui.alerts.events.EventFragment"
+        android:name="com.alercom.app.ui.alerts.create.categories.EventCategoryFragment"
         android:label="Menu"
-        tools:layout="@layout/event_fragment">
+        tools:layout="@layout/event_category_fragment">
         <action
             android:id="@+id/action_MainFragment_to_AlertFragment"
             app:destination="@id/LocationFragment" />
@@ -35,7 +57,7 @@
 
     <fragment
         android:id="@+id/LocationFragment"
-        android:name="com.alercom.app.ui.alerts.location.LocationFragment"
+        android:name="com.alercom.app.ui.alerts.create.location.LocationFragment"
         android:label="Location"
         tools:layout="@layout/location_fragment">
 
@@ -58,7 +80,7 @@
 
     <fragment
         android:id="@+id/createAlert"
-        android:name="com.alercom.app.ui.alerts.CreateAlertFragment"
+        android:name="com.alercom.app.ui.alerts.create.CreateAlertFragment"
         android:label="Create"
         tools:layout="@layout/create_alert_fragment">
 
@@ -87,7 +109,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/ListAlertFragment"
+        android:id="@+id/ListMyAlertFragment"
         android:name="com.alercom.app.ui.alerts.list.ListAlertFragment"
         android:label="Menu"
         tools:layout="@layout/list_alert_fragment">
@@ -101,6 +123,51 @@
         android:name="com.alercom.app.ui.alerts.edit.EditAlertFragment"
         android:label="Edit"
         tools:layout="@layout/edit_alert_fragment">
+        <argument
+            android:name="alertId"
+            app:argType="integer" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/editUserFragment"
+        android:name="com.alercom.app.ui.user.edit.EditUserFragment"
+        android:label="edit_user_fragment"
+        tools:layout="@layout/edit_user_fragment" />
+    <fragment
+        android:id="@+id/dataProtectionFragment"
+        android:name="com.alercom.app.ui.data_protection.DataProtectionFragment"
+        android:label="fragment_data_protection"
+        tools:layout="@layout/fragment_data_protection" />
+    <fragment
+        android:id="@+id/institutionalRouteFragment"
+        android:name="com.alercom.app.ui.institutional_routes.InstitutionalRouteFragment"
+        android:label="institutional_route_fragment"
+        tools:layout="@layout/institutional_route_fragment" >
+        <action
+            android:id="@+id/action_institutionalRouteFragment_to_institutionalRoutePageFragment"
+            app:destination="@id/institutionalRoutePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/institutionalRoutePageFragment"
+        android:name="com.alercom.app.ui.institutional_routes.page.InstitutionalRoutePageFragment"
+        android:label="fragment_institutional_route_page"
+        tools:layout="@layout/fragment_institutional_route_page" >
+        <argument
+            android:name="namePage"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/showEventFragment"
+        android:name="com.alercom.app.ui.alerts.show.ShowEventFragment"
+        android:label="show_event_fragment"
+        tools:layout="@layout/show_event_fragment" >
         <argument
             android:name="alertId"
             app:argType="integer" />

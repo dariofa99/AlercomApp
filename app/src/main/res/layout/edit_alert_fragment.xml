@@ -3,14 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.AlercomAppActionBar"
     tools:context=".ui.alerts.edit.EditAlertFragment">
 
+    <include
+        android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
+        />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="55dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
@@ -56,6 +59,22 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="10dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/lAlertCategory"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundMode="outline"
+                        app:startIconDrawable="@drawable/ic_baseline_list_24">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/eventCategoryIdId"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Sel. Tipo de evento"
+                            android:inputType="none"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/lEventDescription"
@@ -290,7 +309,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:boxBackgroundMode="outline"
-                        app:startIconDrawable="@drawable/list">
+                        app:startIconDrawable="@drawable/ic_baseline_list_24">
 
                         <AutoCompleteTextView
                             android:id="@+id/afectationsRangeId"
@@ -342,6 +361,22 @@
         </LinearLayout>
     </ScrollView>
 
+    <include
+        android:id="@+id/loader"
+        layout="@layout/loading"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="100dp"
+        android:id="@+id/btnOpenMaps"
+        app:backgroundTint="@color/primary"
+        app:icon="@android:drawable/ic_menu_mylocation"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="match_parent"
@@ -354,4 +389,7 @@
         android:layout_marginBottom="40dp"
         android:id="@+id/btnTakePhoto"
         app:icon="@android:drawable/ic_menu_camera"/>
+
+
+
 </RelativeLayout>

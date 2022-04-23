@@ -22,6 +22,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
+    private val _loginAnonimusResult = MutableLiveData<LoginResult>()
+    val loginAnonimusResult: LiveData<LoginResult> = _loginAnonimusResult
+
     fun login(username: String, password: String)  {
         loginRepository.login(username, password,object : OnAuthResponse {
             override fun auth(auth: Result.Success<Response<AuthResponse>>) {
@@ -37,6 +40,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 _loginResult.value = LoginResult(error = unautorize)
             }
         })
+
+
         /* val result = dataSource.login(username, password, object : OnAuthResponse {
              override fun auth(auth: AuthResponse) {
                  System.out.println("Por fin "+auth.accessToken)
@@ -65,6 +70,22 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
     }
 
+    fun loginAnonimus() {
+        loginRepository.loginAnonimus(object : OnAuthResponse {
+            override fun auth(auth: Result.Success<Response<AuthResponse>>) {
+                _loginAnonimusResult.value = LoginResult(success = LoggedInUserView(auth.data.message()))
+            }
+
+            override fun unautorize(unautorize: ErrorResponse) {
+                _loginAnonimusResult.value = LoginResult(unautorize = unautorize)
+            }
+
+            override fun error(unautorize: ErrorResponse) {
+
+                _loginAnonimusResult.value = LoginResult(error = unautorize)
+            }
+        })
+    }
     // A placeholder username validation check
     private fun isUserNameValid(username: String): Boolean {
         return if (username.contains('@')) {
