@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".ui.login.LoginActivity">
 
-
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".37"
+        android:scaleType="centerCrop"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp">
+
+        app:srcCompat="@drawable/logo1"
+        tools:ignore="MissingConstraints" />
 
 
 
-        <ScrollView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
+            android:layout_height="0dp"
+            android:background="@drawable/card_login"
+            app:layout_constraintBaseline_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent=".68"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1"
+            tools:ignore="MissingConstraints">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="35dp"
+                android:orientation="vertical">
 
-                android:orientation="vertical"
-                android:padding="@dimen/activity_horizontal_margin"
-
-                tools:ignore="MissingConstraints">
-
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="match_parent"
-                        android:layout_height="201dp"
-                        app:srcCompat="@drawable/al" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="208dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
-                </FrameLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
                     android:hint="Nombre de usuario"
                     app:boxBackgroundMode="outline"
                     app:endIconMode="clear_text"
@@ -68,7 +68,7 @@
                     <EditText
                         android:id="@+id/username"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -90,7 +90,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ProgressBar
-                    android:id="@+id/loading"
+                    android:id="@+id/Btnloading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/buttom_main"
+                    android:background="@drawable/button_login"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="Iniciar sesión"
@@ -122,7 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/buttom_main"
+                    android:background="@drawable/button_login"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="Registrarse"
@@ -130,38 +130,24 @@
                     app:layout_constraintTop_toBottomOf="@+id/botonRegistrarse"
                     tools:layout_editor_absoluteX="20dp" />
 
-                <Button
-
-                    android:id="@+id/btnReportAnonimo"
+                <com.google.android.material.button.MaterialButton
+                     android:id="@+id/btnReportAnonimo"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="20dp"
-                    android:background="@color/quantum_grey"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="Reportar como anonimo"
-                    android:backgroundTint="@color/black"
-                    android:textColorHint="@color/quantum_googred"
                     tools:layout_editor_absoluteX="20dp" />
 
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="89dp"
-                    android:layout_gravity="center_horizontal"
-
-                    android:foregroundGravity="bottom"
-
-                    android:src="@drawable/footerpenur" />
-
-
             </LinearLayout>
+            </ScrollView>
 
-        </ScrollView>
+            <include
+                android:id="@+id/loader"
+                layout="@layout/loading"/>
 
-    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,7 +41,9 @@ class LoginRepository {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if(response.code() == 200){
                     response.body()?.accessToken?.let { prefs.saveToken(it) }
+                    System.out.println(response.body()?.authUser?.roles?.isEmpty())
                     prefs.saveUserName(response.body()?.authUser?.name)
+                    prefs.can(!response.body()?.authUser?.roles?.isEmpty()!!)
                     val resp = Result.Success(response)
                     callback.auth(resp)
                     setLoggedInUser(response)

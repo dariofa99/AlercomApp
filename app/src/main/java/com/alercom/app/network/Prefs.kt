@@ -6,6 +6,7 @@ import com.alercom.app.response.auth.AuthUser
 class Prefs(val context: Context) {
     val SHARED_NAME = "acToken"
     val SHARED_TOKEN = "acToken"
+    val SHARED_CAN = "userCan"
     val SHARED_USERNAME = "userName"
     val SHARED_AUTH :AuthUser? = null
 
@@ -15,6 +16,10 @@ class Prefs(val context: Context) {
         storage.edit().putString(SHARED_TOKEN,token).apply()
     }
 
+    fun can(can:Boolean){
+        storage.edit().putBoolean(SHARED_CAN,can).apply()
+    }
+
     fun saveUserName(userName: String?){
         storage.edit().putString(SHARED_USERNAME,userName).apply()
     }
@@ -22,7 +27,9 @@ class Prefs(val context: Context) {
     fun getToken():String{
        return storage.getString(SHARED_TOKEN,"").toString()
     }
-
+    fun getCan():Boolean{
+        return storage.getBoolean(SHARED_CAN,false)
+    }
     fun getUserName():String{
         return storage.getString(SHARED_USERNAME,"").toString()
     }

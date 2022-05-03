@@ -21,6 +21,7 @@ import com.alercom.app.MainActivity
 import com.alercom.app.databinding.FragmentLoginBinding
 
 import com.alercom.app.R
+import kotlinx.android.synthetic.main.loading.*
 
 class LoginFragment : Fragment() {
 
@@ -50,7 +51,7 @@ class LoginFragment : Fragment() {
         val usernameEditText = binding.username
         val passwordEditText = binding.password
         val loginButton = binding.btnLogin
-        val loadingProgressBar = binding.loading
+        val loadingProgressBar = binding.Btnloading
 
         loginViewModel.loginFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
@@ -82,8 +83,7 @@ class LoginFragment : Fragment() {
                 startActivity(intent)
             }
             if (loginResult.success != null) {
-                binding.loading.visibility = View.GONE
-                binding.btnLogin?.visibility = View.VISIBLE
+
                 updateUiWithUser(loginResult.success)
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -94,6 +94,7 @@ class LoginFragment : Fragment() {
 
         loginViewModel.loginAnonimusResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
+            _binding?.loader.apply { myLoader.visibility = View.GONE }
             //loading?.visibility = View.GONE
             //  login?.visibility = View.VISIBLE
             if (loginResult.unautorize != null) {
@@ -108,7 +109,7 @@ class LoginFragment : Fragment() {
                // startActivity(intent)
             }
             if (loginResult.success != null) {
-                binding.loading.visibility = View.GONE
+                binding.Btnloading.visibility = View.GONE
                 binding.btnLogin?.visibility = View.VISIBLE
                 updateUiWithUser(loginResult.success)
                 val intent = Intent(requireContext(), MainActivity::class.java)
@@ -148,6 +149,7 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
+            binding.btnLogin?.visibility = View.GONE
             loginViewModel.login(
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
@@ -157,6 +159,7 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_createUserFragment)
         }
         _binding?.btnReportAnonimo?.setOnClickListener{
+            _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
             loginViewModel.loginAnonimus()
         }
     }
@@ -170,7 +173,7 @@ class LoginFragment : Fragment() {
 
 
     private fun showLoginFailed(message: String?) {
-        binding.loading.visibility = View.GONE
+        binding.Btnloading.visibility = View.GONE
         // binding.btnLogin.visibility = View.VISIBLE
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
@@ -181,7 +184,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun showLoginUnautorize( string: String) {
-        binding.loading.visibility = View.GONE
+        binding.Btnloading.visibility = View.GONE
         // binding.btnLogin.visibility = View.VISIBLE
         Toast.makeText(requireContext(), string, Toast.LENGTH_SHORT).show()
     }

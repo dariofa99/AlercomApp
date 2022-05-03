@@ -33,6 +33,7 @@ import com.alercom.app.resources.MapsActivity
 import com.app.alercom.adapter.AffectsRangeSpinnerAdapter
 import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
 import kotlinx.android.synthetic.main.edit_user_fragment.*
+import kotlinx.android.synthetic.main.loading.*
 import java.io.File
 
 
@@ -95,9 +96,8 @@ class CreateAlertFragment  : Fragment() {
 
         viewModel.eventReportResult.observe( this@CreateAlertFragment, Observer {
             val eventReportResultado = it ?: return@Observer
-         //   _binding?.myLoader?.visibility = View.GONE
-           // _binding?.loading?.visibility = View.GONE
             if(eventReportResultado.success!=null){
+                _binding?.loader.apply { myLoader.visibility = View.GONE }
                 showMessage("Alerta enviada con éxito")
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -152,8 +152,7 @@ class CreateAlertFragment  : Fragment() {
         _binding?.btnSaveAlert?.setOnClickListener{
 
             if(validateForm()) {
-             //  _binding?.myLoader?.visibility = View.VISIBLE
-             //   _binding?.loading?.visibility = View.VISIBLE
+                _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
 
                 val newAlert = CreateAlertRequest(
                     eventDescription =  _binding?.eventDescription?.text.toString(),
@@ -165,6 +164,7 @@ class CreateAlertFragment  : Fragment() {
                     affectedAnimals = _binding?.affectedAnimals?.isChecked,
                     affectedInfrastructure = _binding?.affectedInfrastructure?.isChecked,
                     affectedLivelihoods = _binding?.affectedLivelihoods?.isChecked,
+                    affectedEnviroment = _binding?.affectedEnviroment?.isChecked,
                     eventTypeId = _eventType?.id,
                     townId = args.townId,
                     statusId = 16,
