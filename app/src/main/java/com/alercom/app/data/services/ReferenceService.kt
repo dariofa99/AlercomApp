@@ -1,4 +1,4 @@
-package com.alercom.app.services
+package com.alercom.app.data.services
 import com.alercom.app.response.references.dynamic.DynamicReferenceResponse
 import com.alercom.app.response.references.statics.StaticReferenceResponse
 import com.alercom.app.response.references.towns.TownResponse

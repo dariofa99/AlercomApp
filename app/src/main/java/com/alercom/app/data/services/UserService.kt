@@ -1,4 +1,4 @@
-package com.alercom.app.services
+package com.alercom.app.data.services
 
 import com.alercom.app.request.CreateUserRequest
 import com.alercom.app.response.user.UserResponse

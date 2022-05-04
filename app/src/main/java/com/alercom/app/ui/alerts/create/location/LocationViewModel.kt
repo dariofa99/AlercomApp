@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alercom.app.data.model.Reference
 import com.alercom.app.data.model.Town
-import com.alercom.app.repositories.ReferenceRepository
+import com.alercom.app.data.repositories.ReferenceRepository
 import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.references.statics.StaticReferenceResult
 import com.alercom.app.response.references.statics.OnStaticReferenceResponse

@@ -1,4 +1,4 @@
-package com.alercom.app.repositories
+package com.alercom.app.data.repositories
 
 
 import com.alercom.app.data.model.EventType
@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import com.alercom.app.network.retrofit
 import com.alercom.app.response.events.EventTypeResponse
-import com.alercom.app.services.EventTypeService
+import com.alercom.app.data.services.EventTypeService
 
 
 class EventTypeRepository {

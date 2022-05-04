@@ -1,4 +1,4 @@
-package com.alercom.app.repositories
+package com.alercom.app.data.repositories
 
 import com.alercom.app.data.model.Alert
 import okhttp3.MediaType
@@ -17,7 +17,7 @@ import com.alercom.app.response.alerts.edit.OnEditAlertResult
 import com.alercom.app.response.alerts.list.ListAlertResponse
 import com.alercom.app.response.alerts.list.OnListAlertResult
 import com.alercom.app.response.alerts.update.UpdateAlertResponse
-import com.alercom.app.services.AlertService
+import com.alercom.app.data.services.AlertService
 
 
 class AlertRepository {

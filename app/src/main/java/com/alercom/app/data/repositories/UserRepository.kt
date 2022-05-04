@@ -1,4 +1,4 @@
-package com.alercom.app.repositories
+package com.alercom.app.data.repositories
 
 
 import com.alercom.app.response.user.OnUserResponse
@@ -9,7 +9,7 @@ import com.alercom.app.network.retrofit
 import com.alercom.app.request.CreateUserRequest
 import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.user.UserResponse
-import com.alercom.app.services.UserService
+import com.alercom.app.data.services.UserService
 
 class UserRepository {
 

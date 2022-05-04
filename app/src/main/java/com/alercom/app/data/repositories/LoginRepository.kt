@@ -1,18 +1,25 @@
-package com.alercom.app.repositories
+package com.alercom.app.data.repositories
+
+
+import com.alercom.app.data.database.dao.LoginDao
+import com.alercom.app.data.services.LoginService
 
 import com.alercom.app.response.auth.AuthResponse
-import com.alercom.app.response.auth.OnAuthResponse
-import com.alercom.app.services.LoginService
-import com.google.gson.JsonObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import com.alercom.app.network.retrofit
-import com.alercom.app.AlercomApp.Companion.prefs
-import com.alercom.app.data.Result
-import com.alercom.app.response.ErrorResponse
 
-class LoginRepository {
+
+import javax.inject.Inject
+
+class LoginRepository @Inject constructor(
+    private val api : LoginService,
+    private  val loginDao: LoginDao
+) {
+
+
+    suspend fun login(pass: String, username: String): AuthResponse {
+        return api.login(username, pass)
+    }
+
+    /*
     var auth: Response<AuthResponse>? = null
 
 
@@ -32,7 +39,7 @@ class LoginRepository {
 
     fun login(username: String, password: String,callback : OnAuthResponse) {
 
-        val service = retrofit.create<LoginService>(LoginService::class.java)
+        val service = retrofit.create<LoginApiClient>(LoginApiClient::class.java)
         val jo = JsonObject()
         jo.addProperty("username", username)
         jo.addProperty("password", password)
@@ -71,7 +78,7 @@ class LoginRepository {
 
     fun loginAnonimus(callback : OnAuthResponse) {
 
-        val service = retrofit.create<LoginService>(LoginService::class.java)
+        val service = retrofit.create<LoginApiClient>(LoginApiClient::class.java)
         val call =  service.loginAnonimus()
         call.enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
@@ -108,5 +115,5 @@ class LoginRepository {
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
-
+*/
 }

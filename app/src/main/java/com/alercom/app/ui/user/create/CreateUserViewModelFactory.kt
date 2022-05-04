@@ -2,7 +2,7 @@ package com.alercom.app.ui.user.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.alercom.app.repositories.UserRepository
+import com.alercom.app.data.repositories.UserRepository
 
 class CreateUserViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

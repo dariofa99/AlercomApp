@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alercom.app.data.model.User
-import com.alercom.app.repositories.UserRepository
+import com.alercom.app.data.repositories.UserRepository
 import com.alercom.app.request.CreateUserRequest
 import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.user.OnUserResponse
-import com.alercom.app.response.user.UserResponse
 import com.alercom.app.response.user.UserResult
 
 class EditUserViewModel(private val userRepository: UserRepository) : ViewModel() {

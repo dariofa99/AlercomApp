@@ -1,4 +1,4 @@
-package com.alercom.app.repositories
+package com.alercom.app.data.repositories
 
 
 
@@ -14,7 +14,7 @@ import com.alercom.app.response.references.dynamic.DynamicReferenceResponse
 import com.alercom.app.response.references.dynamic.OnDynamicReferenceResponse
 import com.alercom.app.response.references.statics.StaticReferenceResponse
 import com.alercom.app.response.references.towns.TownResponse
-import com.alercom.app.services.ReferenceService
+import com.alercom.app.data.services.ReferenceService
 
 
 class ReferenceRepository {

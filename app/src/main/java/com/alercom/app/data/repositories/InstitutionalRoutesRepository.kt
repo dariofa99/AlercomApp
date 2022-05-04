@@ -1,10 +1,10 @@
-package com.alercom.app.repositories
+package com.alercom.app.data.repositories
 
 import com.alercom.app.data.model.InstitutionalRoute
 import com.alercom.app.network.retrofit
 import com.alercom.app.response.institutional_routes.InstitutionalRouteResponse
 import com.alercom.app.response.institutional_routes.OnInstitutionalRouteResponse
-import com.alercom.app.services.InstitutionalRouteService
+import com.alercom.app.data.services.InstitutionalRouteService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
