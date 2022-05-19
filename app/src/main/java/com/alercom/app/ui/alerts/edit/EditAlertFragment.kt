@@ -310,7 +310,7 @@ class EditAlertFragment : Fragment() {
         if (isSuccess) {
             latestTmpUri?.let { uri ->
                 _binding?.eventPhoto?.setImageURI(uri)
-
+                runAnimations()
             }
         }
     }
@@ -388,21 +388,7 @@ class EditAlertFragment : Fragment() {
             if(ActivityCompat.checkSelfPermission(requireContext(),
                     Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
                 takeImage()
-                //dispatchTakePictureIntent()
-                /*   if(ActivityCompat.checkSelfPermission(requireContext(),
-                           Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-
-                       if(ActivityCompat.checkSelfPermission(requireContext(),
-                               Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                           dispatchTakePictureIntent()
-                           System.out.println("Por check")
-                       }
-
-                   }
-   */
-
-
-            }else{
+             }else{
 
                 requestPermissions(
                     arrayOf(
@@ -415,9 +401,6 @@ class EditAlertFragment : Fragment() {
             }
         }else{
             takeImage()
-            // dispatchTakePictureIntent()
-            System.out.println("Por vewrsions")
-
         }
     }
 

@@ -1,5 +1,6 @@
 package com.alercom.app.ui.user.edit
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
+import com.alercom.app.network.Prefs
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.alercom.app.data.model.User
 import com.alercom.app.databinding.EditUserFragmentBinding
 import com.alercom.app.request.CreateUserRequest
+import com.alercom.app.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
 import kotlinx.android.synthetic.main.edit_user_fragment.*
 import kotlinx.android.synthetic.main.loading.*
@@ -23,7 +25,10 @@ class EditUserFragment : Fragment() {
 
     companion object {
         fun newInstance() = EditUserFragment()
+        lateinit var prefs: Prefs
     }
+
+
 
     private lateinit var viewModel: EditUserViewModel
     private var _binding: EditUserFragmentBinding?  = null
@@ -42,6 +47,7 @@ class EditUserFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        prefs = Prefs(requireContext())
        /* val tooblar:Toolbar? = view?.findViewById<Toolbar>(R.id.toolbar)
         (requireActivity() as MainActivity).setSupportActionBar(tooblar)
         (requireActivity() as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -62,6 +68,16 @@ class EditUserFragment : Fragment() {
                 _binding?.loader.apply {
                     myLoader.visibility = View.GONE
                 }
+            }
+            if(userEditResult.unautorize!=null){
+                prefs.wipe();
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                _binding?.loader.apply {
+                    myLoader.visibility = View.GONE
+                }
+                showMessage(userEditResult.unautorize.error!!)
             }
         })
 

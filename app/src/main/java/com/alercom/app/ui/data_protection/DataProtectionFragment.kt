@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-
+import com.alercom.app.network.Prefs
 import com.alercom.app.adapter.ViewPageAdapter
-
-
 import com.alercom.app.databinding.FragmentDataProtectionBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
@@ -18,7 +16,7 @@ import kotlinx.android.synthetic.main.edit_user_fragment.*
 
 class DataProtectionFragment : Fragment() {
     companion object {
-
+        lateinit var prefs: Prefs
         fun newInstance() =
             DataProtectionFragment()
     }

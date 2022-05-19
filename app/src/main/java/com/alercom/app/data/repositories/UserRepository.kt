@@ -27,9 +27,8 @@ class UserRepository {
 
                 }
                 if(response.code() == 403){
-                  //  val error = ErrorResponse("Token no existe")
-                    //val resp = Result.Error(error)
-                 //   callback.unautorize(error)
+                    val error = ErrorResponse("Sesión expirada, vuleve a iniciar sesión")
+                    callback.unautorize(error)
 
                 }
             }
