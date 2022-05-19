@@ -150,8 +150,8 @@
 
                         <ImageView
 
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
                             android:src="@drawable/people">
 
@@ -167,7 +167,7 @@
                         <Switch
                             android:id="@+id/affectedPeople"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
                             android:layout_marginStart="@dimen/cardview_default_elevation"
                             tools:ignore="RtlHardcoded,UseSwitchCompatOrMaterialXml" />
@@ -181,8 +181,8 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
                             android:src="@drawable/family2">
 
@@ -198,7 +198,7 @@
                         <Switch
                             android:id="@+id/affectedFamily"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
                             android:layout_marginStart="@dimen/cardview_default_elevation"
                             tools:ignore="RtlHardcoded,UseSwitchCompatOrMaterialXml" />
@@ -211,8 +211,8 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
                             android:src="@drawable/animal">
 
@@ -220,18 +220,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="40dp"
-                            android:text="Animales:"
-                            android:textSize="20dp"></TextView>
+                            android:layout_marginStart="40dp"
+                            android:text="@string/animales"
+                            android:textSize="20sp" />
 
                         <Switch
                             android:id="@+id/affectedAnimals"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
-                            android:layout_marginStart="@dimen/cardview_default_elevation">
+                            android:layout_marginStart="@dimen/cardview_default_elevation"
+                            tools:ignore="UseSwitchCompatOrMaterialXml">
 
                         </Switch>
                     </LinearLayout>
@@ -243,8 +243,8 @@
 
                         <ImageView
 
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
                             android:src="@drawable/infra">
 
@@ -252,18 +252,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="40dp"
-                            android:text="Infraestructura:"
-                            android:textSize="20dp"></TextView>
+                            android:layout_marginStart="40dp"
+                            android:text="@string/infraestructura"
+                            android:textSize="20sp" />
 
                         <Switch
                             android:id="@+id/affectedInfrastructure"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
-                            android:layout_marginStart="@dimen/cardview_default_elevation">
+                            android:layout_marginStart="@dimen/cardview_default_elevation"
+                            tools:ignore="UseSwitchCompatOrMaterialXml">
 
                         </Switch>
                     </LinearLayout>
@@ -275,8 +275,8 @@
 
                         <ImageView
 
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
                             android:src="@drawable/nature">
 
@@ -284,18 +284,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="40dp"
-                            android:text="Medios de vida:"
-                            android:textSize="20dp"></TextView>
+                            android:layout_marginStart="40dp"
+                            android:text="@string/medios_de_vida"
+                            android:textSize="20sp" />
 
                         <Switch
                             android:id="@+id/affectedLivelihoods"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
-                            android:layout_marginStart="@dimen/cardview_default_elevation">
+                            android:layout_marginStart="@dimen/cardview_default_elevation"
+                            tools:ignore="RtlHardcoded,UseSwitchCompatOrMaterialXml">
 
                         </Switch>
                     </LinearLayout>
@@ -308,8 +308,8 @@
 
                         <ImageView
 
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
                             android:src="@drawable/baseline_cloudy_snowing_black_20">
 
@@ -326,7 +326,7 @@
                         <Switch
                             android:id="@+id/affectedEnviroment"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="right"
                             android:layout_marginStart="@dimen/cardview_default_elevation">
 
@@ -391,9 +391,41 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
+
     <include
         android:id="@+id/loader"
-        layout="@layout/loading"/>
+        layout="@layout/loading" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="210dp"
+        android:id="@+id/btnSelectFoto"
+        app:icon="@drawable/ic_baseline_image_search_24"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="160dp"
+        android:id="@+id/btnTakePhoto"
+        app:backgroundTint="@color/primary"
+        android:tint="@color/white"
+        android:visibility="gone"
+        app:icon="@drawable/ic_baseline_camera_alt_24"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="match_parent"
@@ -404,9 +436,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="100dp"
-        android:id="@+id/btnOpenMaps"
-       app:backgroundTint="@color/primary"
-        app:icon="@android:drawable/ic_menu_mylocation"/>
+        android:id="@+id/btnSelectImage"
+        app:icon="@drawable/ic_baseline_monochrome_photos_24"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="match_parent"
@@ -417,8 +448,12 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="40dp"
-        android:id="@+id/btnTakePhoto"
-        app:icon="@android:drawable/ic_menu_camera"/>
+        android:id="@+id/btnOpenMaps"
+        app:backgroundTint="@color/primary"
+        app:icon="@android:drawable/ic_menu_mylocation"/>
+
+
+
 
 
 </RelativeLayout>

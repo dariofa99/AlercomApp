@@ -46,7 +46,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(prefs?.getUserName().toString() == "anonimus" || !prefs?.getCan()){
+        if(prefs?.getUserName().toString() == "anonimus" || !prefs?.getCan()!!){
            // findNavController().navigate(R.id.action_MainFragment_to_AlertFragment)
             _binding?.btnProfile?.visibility = View.GONE
             _binding?.btnViewMyAlerts?.visibility = View.GONE

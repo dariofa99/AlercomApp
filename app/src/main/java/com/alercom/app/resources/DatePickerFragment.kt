@@ -21,7 +21,7 @@ DatePickerDialog.OnDateSetListener{
         val year:Int = calendar.get(Calendar.YEAR)
         val picker = DatePickerDialog(activity as Context, this,year,(mont),day)
         picker.datePicker.maxDate = calendar.timeInMillis
-        calendar.add(Calendar.MONTH, - 2)
+        calendar.add(Calendar.DAY_OF_MONTH, - 8)
         picker.datePicker.minDate = calendar.timeInMillis
         return  picker
 

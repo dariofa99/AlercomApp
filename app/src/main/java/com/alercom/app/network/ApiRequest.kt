@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private var context : Context? = null
 
-val  BASE_ROOT = "http://3.136.4.86/"
+val  BASE_ROOT = "http://18.220.203.127/"
 val  BASE_LOCAL_ROOT = "http://10.0.2.2:4200/"
 val interceptor:HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
     this.level = HttpLoggingInterceptor.Level.BODY

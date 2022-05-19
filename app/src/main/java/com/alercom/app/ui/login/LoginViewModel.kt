@@ -4,41 +4,26 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import androidx.lifecycle.viewModelScope
+import com.alercom.app.R
+import com.alercom.app.data.Result
+import com.alercom.app.data.repositories.LoginRepository
+import com.alercom.app.response.ErrorResponse
+import com.alercom.app.response.auth.AuthResponse
+import com.alercom.app.response.auth.OnAuthResponse
+import retrofit2.Response
 
+class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
-import com.alercom.app.domain.auth.AuthLoginCase
-import com.alercom.app.domain.auth.User
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import javax.inject.Inject
-
-@HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val authLoginCase: AuthLoginCase
-    )
-    : ViewModel() {
-
-    val loginForm = MutableLiveData<User>()
-
+    private val _loginForm = MutableLiveData<LoginFormState>()
+    val loginFormState: LiveData<LoginFormState> = _loginForm
 
     private val _loginResult = MutableLiveData<LoginResult>()
-    //val loginResult: LiveData<LoginResult> = _loginResult
+    val loginResult: LiveData<LoginResult> = _loginResult
 
     private val _loginAnonimusResult = MutableLiveData<LoginResult>()
     val loginAnonimusResult: LiveData<LoginResult> = _loginAnonimusResult
 
     fun login(username: String, password: String)  {
-
-        viewModelScope.launch {
-            val result =  authLoginCase(username, password)
-            if(result!=null){
-                loginForm.postValue(result)
-            }
-
-        }
-
-        /*
         loginRepository.login(username, password,object : OnAuthResponse {
             override fun auth(auth: Result.Success<Response<AuthResponse>>) {
                 _loginResult.value = LoginResult(success = LoggedInUserView(auth.data.message()))
@@ -53,8 +38,6 @@ class LoginViewModel @Inject constructor(
                 _loginResult.value = LoginResult(error = unautorize)
             }
         })
-
-         */
 
 
         /* val result = dataSource.login(username, password, object : OnAuthResponse {
@@ -75,21 +58,16 @@ class LoginViewModel @Inject constructor(
         }*/
     }
 
-
-
-    /*
-        fun loginDataChanged(username: String, password: String) {
-            if (!isUserNameValid(username)) {
-                _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
-            } else if (!isPasswordValid(password)) {
-                _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
-            } else {
-                _loginForm.value = LoginFormState(isDataValid = true)
-            }
+    fun loginDataChanged(username: String, password: String) {
+        if (!isUserNameValid(username)) {
+            _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
+        } else if (!isPasswordValid(password)) {
+            _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
+        } else {
+            _loginForm.value = LoginFormState(isDataValid = true)
         }
+    }
 
-     */
-/*
     fun loginAnonimus() {
         loginRepository.loginAnonimus(object : OnAuthResponse {
             override fun auth(auth: Result.Success<Response<AuthResponse>>) {
@@ -106,8 +84,6 @@ class LoginViewModel @Inject constructor(
             }
         })
     }
-
- */
     // A placeholder username validation check
     private fun isUserNameValid(username: String): Boolean {
         return if (username.contains('@')) {

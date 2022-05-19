@@ -89,6 +89,9 @@ class ReferenceRepository {
                 if(response.code() == 200){
                     callback.success(reference)
                 }
+                if(response.code() == 200){
+                    callback.success(reference)
+                }
             }
             override fun onFailure(call: Call<DynamicReferenceResponse>, t: Throwable) {
 

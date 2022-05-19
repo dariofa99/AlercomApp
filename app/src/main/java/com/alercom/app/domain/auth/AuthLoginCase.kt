@@ -2,7 +2,7 @@ package com.alercom.app.domain.auth
 
 import com.alercom.app.data.repositories.LoginRepository
 import javax.inject.Inject
-
+/*
 class AuthLoginCase @Inject constructor(
     private val repository: LoginRepository,
 
@@ -17,3 +17,5 @@ class AuthLoginCase @Inject constructor(
 
     }
 }
+
+ */

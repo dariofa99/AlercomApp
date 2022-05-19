@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.alercom.app.R
 import com.alercom.app.data.model.User
 import com.alercom.app.databinding.CreateUserFragmentBinding
 import com.alercom.app.request.CreateUserRequest
@@ -44,8 +45,7 @@ class CreateUserFragment : Fragment() {
             val userEditResult = it ?: return@Observer
             if(userEditResult.success!=null){
                 user = userEditResult.success
-               // showMessage("Enviado con exito")
-                showDialog("Registro exitoso!","Se envió un correo de confirmación a ${user?.email}")
+                showDialog("Registro exitoso!",getString(R.string.email_confirmation))
                 _binding?.loader.apply {myLoader.visibility = View.GONE}
                 findNavController().navigateUp()
             }

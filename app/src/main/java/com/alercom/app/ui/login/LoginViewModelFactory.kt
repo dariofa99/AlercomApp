@@ -2,6 +2,9 @@ package com.alercom.app.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.alercom.app.data.LoginDataSource
+import com.alercom.app.data.database.AlercomRoomDatabase
+import com.alercom.app.data.database.dao.LoginDao
 import com.alercom.app.data.repositories.LoginRepository
 
 
@@ -9,9 +12,8 @@ import com.alercom.app.data.repositories.LoginRepository
  * ViewModel provider factory to instantiate LoginViewModel.
  * Required given LoginViewModel has a non-empty constructor
  */
-/*
 class LoginViewModelFactory : ViewModelProvider.Factory {
-/*
+
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
@@ -21,8 +23,4 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-
- */
 }
-
- */

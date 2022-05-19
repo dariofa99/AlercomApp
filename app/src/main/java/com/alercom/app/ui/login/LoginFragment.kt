@@ -25,10 +25,10 @@ import com.alercom.app.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.loading.*
 
-@AndroidEntryPoint
+
 class LoginFragment : Fragment() {
 
-    private val loginViewModel: LoginViewModel by viewModels()
+    private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentLoginBinding? = null
 
     // This property is only valid between onCreateView and
@@ -48,19 +48,21 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      /*  loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-       */
+
 
         val usernameEditText = binding.username
         val passwordEditText = binding.password
         val loginButton = binding.btnLogin
         val loadingProgressBar = binding.Btnloading
-
+/*
         loginViewModel.loginForm.observe(viewLifecycleOwner, Observer {
             showLoginUnautorize("funciona el login ${it.lastname}")
         })
+
+ */
 
 /*
         loginViewModel.loginFormState.observe(viewLifecycleOwner,
@@ -76,6 +78,7 @@ class LoginFragment : Fragment() {
                     passwordEditText.error = getString(it)
                 }
             })
+            */
 
         loginViewModel.loginResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
@@ -102,8 +105,8 @@ class LoginFragment : Fragment() {
             }
         })
 
- */
-/*
+
+
         loginViewModel.loginAnonimusResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
             _binding?.loader.apply { myLoader.visibility = View.GONE }
@@ -130,7 +133,7 @@ class LoginFragment : Fragment() {
 
             }
         })
-*/
+
      /*   val afterTextChangedListener = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // ignore
@@ -172,7 +175,7 @@ class LoginFragment : Fragment() {
         }
         _binding?.btnReportAnonimo?.setOnClickListener{
             _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
-          //  loginViewModel.loginAnonimus()
+            loginViewModel.loginAnonimus()
         }
     }
 

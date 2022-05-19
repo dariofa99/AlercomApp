@@ -6,15 +6,22 @@
     android:theme="@style/Theme.AlercomAppActionBar"
     tools:context=".ui.alerts.create.categories.EventCategoryFragment">
 
-    <include
-        android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerEventType"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp" />
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerEventType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
+    </LinearLayout>
+
+
+
 
     <include
 

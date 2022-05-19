@@ -1,26 +1,31 @@
 package com.alercom.app.data.repositories
 
 
+import com.alercom.app.AlercomApp.Companion.prefs
+import com.alercom.app.data.Result
+import com.alercom.app.data.database.AlercomRoomDatabase
 import com.alercom.app.data.database.dao.LoginDao
-import com.alercom.app.data.services.LoginService
+import com.alercom.app.data.database.entities.UserEntity
+import com.alercom.app.data.services.LoginApiClient
+import com.alercom.app.domain.auth.User
+import com.alercom.app.network.retrofit
+import com.alercom.app.response.ErrorResponse
 
 import com.alercom.app.response.auth.AuthResponse
+import com.alercom.app.response.auth.OnAuthResponse
+import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 import javax.inject.Inject
 
-class LoginRepository @Inject constructor(
-    private val api : LoginService,
-    private  val loginDao: LoginDao
-) {
+class LoginRepository {
 
 
-    suspend fun login(pass: String, username: String): AuthResponse {
-        return api.login(username, pass)
-    }
-
-    /*
     var auth: Response<AuthResponse>? = null
+
 
 
     val isLoggedIn: Boolean
@@ -47,12 +52,21 @@ class LoginRepository @Inject constructor(
         call.enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if(response.code() == 200){
+                    val auth = response.body()?.authUser!!
+                    val us = UserEntity(
+                        id = auth?.id,
+                        name = auth.name,
+                        lastname = auth.lastname,
+                        address = auth.address
+                    )
+                  //  appDatabase.getLoginDao().insertUser(us)
                     response.body()?.accessToken?.let { prefs.saveToken(it) }
                     System.out.println(response.body()?.authUser?.roles?.isEmpty())
                     prefs.saveUserName(response.body()?.authUser?.name)
                     prefs.can(!response.body()?.authUser?.roles?.isEmpty()!!)
                     val resp = Result.Success(response)
                     callback.auth(resp)
+
                     setLoggedInUser(response)
                 }
                 if(response.code() == 400  ){
@@ -79,13 +93,13 @@ class LoginRepository @Inject constructor(
     fun loginAnonimus(callback : OnAuthResponse) {
 
         val service = retrofit.create<LoginApiClient>(LoginApiClient::class.java)
-        val call =  service.loginAnonimus()
+        val call =  service.loginAnonymous()
         call.enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if(response.code() == 200){
                     response.body()?.accessToken?.let { prefs.saveToken(it) }
                     prefs.saveUserName(response.body()?.authUser?.username)
-                    val resp = Result.Success(response)
+                    val resp = com.alercom.app.data.Result.Success(response)
                     callback.auth(resp)
                     setLoggedInUser(response)
                 }
@@ -115,5 +129,7 @@ class LoginRepository @Inject constructor(
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
-*/
+
+
+
 }

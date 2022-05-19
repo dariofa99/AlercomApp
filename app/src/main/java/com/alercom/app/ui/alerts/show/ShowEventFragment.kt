@@ -1,5 +1,6 @@
 package com.alercom.app.ui.alerts.show
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -83,47 +85,44 @@ class ShowEventFragment : Fragment() {
         }
 
         _binding?.btnAcceptEvent?.setOnClickListener {
-            _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
-            val newAlert = CreateAlertRequest(
-            eventDescription =  _binding?.eventDescription?.text.toString(),
-            eventDate = _binding?.eventDate?.text.toString(),
-            eventPlace = _binding?.eventPlace?.text.toString(),
-            eventAditionalInformation = _binding?.eventAditionalInformation?.text.toString(),
-            affectedPeople = _binding?.affectedPeople?.isChecked,
-            affectedFamily = _binding?.affectedFamily?.isChecked,
-            affectedAnimals = _binding?.affectedAnimals?.isChecked,
-            affectedInfrastructure = _binding?.affectedInfrastructure?.isChecked,
-            affectedLivelihoods = _binding?.affectedLivelihoods?.isChecked,
-            eventTypeId = _eventType?.id,
-            townId = alert?.townId,
-            statusId = 13,
-            afectationsRangeId = _range?.id,
-            latitude = latitude,
-            longitude = longitude
-        )
-            viewModel.update(alert?.id!!,newAlert,image)
+
+            //showDialog("Atención!","Esta seguro de aceptar la alerta")
+
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("¡Atención!")
+            builder.setMessage("¿Está segura/o de aceptar la alerta?")
+                .setNegativeButton("No, cancelar",DialogInterface.OnClickListener(){
+                        dialogInterface: DialogInterface, i: Int ->
+
+                })
+                .setPositiveButton("Si, aceptar", DialogInterface.OnClickListener() {
+                        dialogInterface: DialogInterface, i: Int ->
+                    _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+                    val newAlert = fillAlert(13)
+                    viewModel.update(alert?.id!!,newAlert,image)
+                })
+               .show()
+
+
         }
 
         _binding?.btnCancelEvent?.setOnClickListener {
-            _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
-           val newAlert = CreateAlertRequest(
-            eventDescription =  _binding?.eventDescription?.text.toString(),
-            eventDate = _binding?.eventDate?.text.toString(),
-            eventPlace = _binding?.eventPlace?.text.toString(),
-            eventAditionalInformation = _binding?.eventAditionalInformation?.text.toString(),
-            affectedPeople = _binding?.affectedPeople?.isChecked,
-            affectedFamily = _binding?.affectedFamily?.isChecked,
-            affectedAnimals = _binding?.affectedAnimals?.isChecked,
-            affectedInfrastructure = _binding?.affectedInfrastructure?.isChecked,
-            affectedLivelihoods = _binding?.affectedLivelihoods?.isChecked,
-            eventTypeId = _eventType?.id,
-            townId = alert?.townId,
-            statusId = 12,
-            afectationsRangeId = _range?.id,
-            latitude = latitude,
-            longitude = longitude
-        )
-            viewModel.update(alert?.id!!,newAlert,image)
+
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("¡Atención!")
+            builder.setMessage("¿Está segura/o de denegar la alerta?")
+                .setNegativeButton("No, cancelar",DialogInterface.OnClickListener(){
+                        dialogInterface: DialogInterface, i: Int ->
+
+                })
+                .setPositiveButton("Si, denegar", DialogInterface.OnClickListener() {
+                        dialogInterface: DialogInterface, i: Int ->
+                    _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+                    val newAlert = fillAlert(12)
+                    viewModel.update(alert?.id!!,newAlert,image)
+                })
+                .show()
+
         }
 
 
@@ -187,8 +186,6 @@ class ShowEventFragment : Fragment() {
                 if(alert?.files?.size!! > 0){
                     Picasso.with(context)
                         .load(alert?.files?.get(0)?.realPath)
-                        .resize(250, 200)
-                        .centerCrop()
                         .into(_binding?.eventPhoto)
                 }else{
                     Picasso.with(context).load(R.drawable.no_photo).into(_binding?.eventPhoto);
@@ -228,4 +225,39 @@ class ShowEventFragment : Fragment() {
         Toast.makeText(requireContext(),"$msg", Toast.LENGTH_LONG).show()
 
     }
+
+    private fun fillAlert(status:Int): CreateAlertRequest {
+
+        val newAlert = CreateAlertRequest(
+            eventDescription =  _binding?.eventDescription?.text.toString(),
+            eventDate = _binding?.eventDate?.text.toString(),
+            eventPlace = _binding?.eventPlace?.text.toString(),
+            eventAditionalInformation = _binding?.eventAditionalInformation?.text.toString(),
+            affectedPeople = _binding?.affectedPeople?.isChecked,
+            affectedFamily = _binding?.affectedFamily?.isChecked,
+            affectedAnimals = _binding?.affectedAnimals?.isChecked,
+            affectedInfrastructure = _binding?.affectedInfrastructure?.isChecked,
+            affectedLivelihoods = _binding?.affectedLivelihoods?.isChecked,
+            eventTypeId = _eventType?.id,
+            townId = alert?.townId,
+            statusId = status,
+            afectationsRangeId = _range?.id,
+            latitude = latitude,
+            longitude = longitude
+        )
+        return newAlert
+    }
+
+    private fun showDialog(title:String,msg:String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("$title")
+        builder.setMessage(msg)
+            .setPositiveButton("Entendido", DialogInterface.OnClickListener() {
+                    dialogInterface: DialogInterface, i: Int ->
+                //Dario   Toast.makeText(requireContext(),"Entendido",Toast.LENGTH_LONG).show()
+
+            }).show()
+
+    }
+
 }

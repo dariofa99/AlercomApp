@@ -8,7 +8,7 @@ import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-
+/*
 class LoginService @Inject constructor(private val api:LoginApiClient) {
     suspend fun login(username:String, password:String): AuthResponse {
 
@@ -23,3 +23,5 @@ class LoginService @Inject constructor(private val api:LoginApiClient) {
         }
     }
 }
+
+ */

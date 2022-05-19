@@ -120,8 +120,7 @@ class AlertRepository {
             }
 
             override fun onFailure(call: Call<UpdateAlertResponse>, t: Throwable) {
-                System.out.println("por aqui")
-                // callback.errors(response.body()?.errors)
+
             }
         })
     }

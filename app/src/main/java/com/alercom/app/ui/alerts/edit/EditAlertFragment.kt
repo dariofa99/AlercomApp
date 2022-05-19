@@ -1,8 +1,11 @@
 package com.alercom.app.ui.alerts.edit
 
 import android.Manifest
+import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -10,10 +13,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
@@ -33,6 +39,7 @@ import com.alercom.app.request.CreateAlertRequest
 import com.alercom.app.resources.DatePickerFragment
 import com.alercom.app.resources.MapViewFragment
 import com.alercom.app.resources.MapsActivity
+import com.alercom.app.resources.RealPathUtil
 import com.app.alercom.adapter.AffectsRangeSpinnerAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
@@ -63,6 +70,12 @@ class EditAlertFragment : Fragment() {
     private val RESULT_MAP = 2
     private var latitude :Double? = null
     private var longitude :Double? = null
+    private val REQUEST_PERMISSION_FILE = 200
+    private val rotateOpen : Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_open_anim) }
+    private val rotateClose : Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_close_anim) }
+    private val fromBottom : Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.from_bottom_anim) }
+    private val toBottom : Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.to_bottom_amin) }
+    private var clicked : Boolean? = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -147,8 +160,8 @@ class EditAlertFragment : Fragment() {
                 if(alert?.files?.size!! > 0){
                     Picasso.with(context)
                         .load(alert?.files?.get(0)?.realPath)
-                        .resize(250, 200)
-                        .centerCrop()
+                        //.resize(30, 20)
+                       // .centerCrop()
                         .into(_binding?.eventPhoto)
                 }else{
                     Picasso.with(context).load(R.drawable.no_photo).into(_binding?.eventPhoto);
@@ -194,6 +207,18 @@ class EditAlertFragment : Fragment() {
         _binding?.btnTakePhoto?.setOnClickListener{
             checkPermissionCamera()
         }
+
+        _binding?.btnSelectFoto?.setOnClickListener {
+            checkPermissionFile()
+        }
+
+        _binding?.btnSelectImage?.setOnClickListener{
+            if(!clicked!!){
+                showDialog("Atención",getString(R.string.message_take_photo))
+            }else{
+                runAnimations()
+            }
+        }
         _binding?.eventDate?.setOnClickListener {
             showDatePickerDialog()
         }
@@ -236,8 +261,49 @@ class EditAlertFragment : Fragment() {
         }
     }
 
+    private fun checkPermissionFile(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                getFile()
+            }else{
+                requireActivity().requestPermissions(
+                    arrayOf(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ), REQUEST_PERMISSION_FILE
+                )
+            }
+        }else{
+            getFile()
+
+        }
+    }
+
+    private fun getFile() {
+        lifecycleScope.launchWhenStarted {
+            getTmpFileUri().let { uri ->
+                val intent = Intent(Intent.ACTION_GET_CONTENT)
+                intent.type = "image/*"
+                latestTmpUri = uri
+                takeFileResult.launch(intent)
+            }
+        }
+
+    }
+
     private fun getNavController(): NavController?{
         return  (activity as? MainActivity)?.navController
+    }
+
+    private val takeFileResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { isSuccess ->
+        if (isSuccess.resultCode == Activity.RESULT_OK) {
+            val uri  = isSuccess.data?.data
+            currentPhotoPath = uri?.let { RealPathUtil.getRealPath(requireContext(), it) }
+            val bitmap = BitmapFactory.decodeFile(currentPhotoPath)
+            image = File(currentPhotoPath)
+            _binding?.eventPhoto?.setImageBitmap(bitmap)
+            runAnimations()
+        }
     }
 
     private val takeImageResult = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
@@ -258,6 +324,41 @@ class EditAlertFragment : Fragment() {
 
         }else{
 
+        }
+    }
+
+    private fun setClickable() {
+        if(!clicked!!){
+            _binding?.btnTakePhoto?.isClickable = true
+            _binding?.btnSelectFoto?.isClickable = true
+        }else{
+            _binding?.btnTakePhoto?.isClickable = false
+            _binding?.btnSelectFoto?.isClickable = false
+        }
+    }
+
+    private fun setAnimation() {
+        if(!clicked!!){
+            _binding?.btnTakePhoto?.startAnimation(fromBottom)
+            _binding?.btnSelectFoto?.startAnimation(fromBottom)
+            _binding?.btnSelectImage?.startAnimation(rotateOpen)
+            _binding?.btnSelectImage?.setIconResource(R.drawable.ic_baseline_close_24)
+
+        }else{
+            _binding?.btnTakePhoto?.startAnimation(toBottom)
+            _binding?.btnSelectFoto?.startAnimation(toBottom)
+            _binding?.btnSelectImage?.startAnimation(rotateClose)
+            _binding?.btnSelectImage?.setIconResource(R.drawable.ic_baseline_monochrome_photos_24)
+        }
+    }
+
+    private fun setVisibility() {
+        if(!clicked!!){
+            _binding?.btnTakePhoto?.visibility = View.VISIBLE
+            _binding?.btnSelectFoto?.visibility = View.VISIBLE
+        }else{
+            _binding?.btnTakePhoto?.visibility = View.GONE
+            _binding?.btnSelectFoto?.visibility = View.GONE
         }
     }
 
@@ -391,4 +492,29 @@ class EditAlertFragment : Fragment() {
         Toast.makeText(requireContext(),"$msg", Toast.LENGTH_LONG).show()
 
     }
+
+    private fun showDialog(title:String,msg:String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("$title")
+        builder.setMessage(msg)
+        builder.setPositiveButton("Entendido", DialogInterface.OnClickListener() {
+                dialogInterface: DialogInterface, i: Int ->
+            runAnimations()
+        })
+        builder.setOnCancelListener{
+            clicked=true
+            runAnimations()
+        }
+
+        builder.show()
+
+    }
+
+    private fun runAnimations(){
+        setAnimation()
+        setVisibility()
+        setClickable()
+        clicked=!clicked!!
+    }
+
 }

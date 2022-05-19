@@ -33,4 +33,15 @@
     <string name="mi_perfil">Mi perfil</string>
     <string name="protecci_n_de_datos">Protección de datos</string>
     <string name="medios_de_vida">Medios de vida:</string>
+    <string name="message_take_photo">Evite tomar fotografías a personas sin su consentimiento, solicite permiso previamente
+        antes de cualquier acción al respecto. No realice registro fotográfico a menores de edad. Las fotografías deben
+        evidenciar el hecho reportado, es decir, una imagen general del evento. La fotografía es para aportar a la información
+        de análisis de las entidades y organizaciones responsables de atender el caso
+    </string>
+    <string name="email_confirmation">Hemos enviado la confirmación de registro a su correo electrónico,
+        por favor consulte su bandeja de entrada o correo no deseado y culmine su registro.
+    </string>
+    <string name="animales">Animales:</string>
+    <string name="infraestructura">Infraestructura:</string>
+
 </resources>

@@ -21,7 +21,7 @@ import com.alercom.app.databinding.ActivityLoginBinding
 import com.alercom.app.R
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+
 class LoginActivity : AppCompatActivity() {
 
 
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         //setContentView(binding.root)
-        navController = findNavController(R.id.loginFragment)
+      //  navController = findNavController(R.id.loginFragment)
     }
 }
 
