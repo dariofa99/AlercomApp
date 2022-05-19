@@ -2,7 +2,7 @@ package com.alercom.app.ui.alerts.create.location
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.alercom.app.repositories.ReferenceRepository
+import com.alercom.app.data.repositories.ReferenceRepository
 
 
 

@@ -32,6 +32,7 @@ class EventTypeViewHolder(view:View) : RecyclerView.ViewHolder(view) {
 
     val binding = ItemEventTypeBinding.bind(view)
     fun render(eventType: Reference, onClickListener: (Reference) ->Unit){
+        val stringMsg = "${eventType.referenceName}\n ${eventType.referenceDescription}";
         binding.lblDescription.text = eventType.referenceDescription
         binding.lblTitle.text = eventType.referenceName
 
@@ -41,9 +42,7 @@ class EventTypeViewHolder(view:View) : RecyclerView.ViewHolder(view) {
 
 
         binding.iconRow.setOnClickListener {
-
-            System.out.println(eventType.id)
-
+            onClickListener(eventType)
         }
     }
 

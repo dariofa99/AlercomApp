@@ -8,8 +8,9 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:background="@drawable/card_alerts_item"
         android:minHeight="110dp"
-        android:background="@color/black"
+        android:padding="@dimen/cardview_default_elevation"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,12 +25,15 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
+            android:padding="10dp"
+            android:background="@drawable/card_alerts_item"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/lblLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,11 +44,11 @@
             </TextView>
 
             <LinearLayout
+                android:background="@drawable/card_alerts_item"
                 android:id="@+id/linear"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 app:layout_constraintEnd_toEndOf="@+id/lblTitle"
-                android:background="@color/black"
                 android:orientation="horizontal">
 
             </LinearLayout>
@@ -68,7 +72,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/cardview_default_elevation"
-                        android:background="@color/white"
+
                         android:padding="5dp"
                         android:src="@drawable/ic_baseline_add_task_24" />
 
@@ -88,13 +92,14 @@
                             android:layout_toRightOf="@+id/iconRow"
                             android:minHeight="58dp"
                             android:text="Esto es una prueba de"
-                            android:textColor="@color/cardview_dark_background"
+                            android:textColor="@color/black"
                             android:textSize="20sp">
 
                         </TextView>
 
 
                         <TextView
+                            android:textColor="@color/black"
                             android:id="@+id/lblEventDate"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -102,7 +107,6 @@
                             android:text="Mayo 5 - 2020"
                             android:textSize="20sp"
                             tools:ignore="RtlHardcoded" />
-
 
 
                     </LinearLayout>

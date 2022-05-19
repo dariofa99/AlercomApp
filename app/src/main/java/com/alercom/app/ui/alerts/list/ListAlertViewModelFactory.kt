@@ -2,7 +2,7 @@ package com.alercom.app.ui.alerts.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.alercom.app.repositories.AlertRepository
+import com.alercom.app.data.repositories.AlertRepository
 
 class ListAlertViewModelFactory :ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

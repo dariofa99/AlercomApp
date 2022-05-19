@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.alercom.app.data.model.Alert
 import com.alercom.app.data.model.EventType
 import com.alercom.app.data.model.Reference
-import com.alercom.app.repositories.AlertRepository
-import com.alercom.app.repositories.EventTypeRepository
-import com.alercom.app.repositories.ReferenceRepository
+import com.alercom.app.data.repositories.AlertRepository
+import com.alercom.app.data.repositories.EventTypeRepository
+import com.alercom.app.data.repositories.ReferenceRepository
 import com.alercom.app.request.CreateAlertRequest
 import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.alerts.create.OnUpdateAlertResult
@@ -16,8 +16,6 @@ import com.alercom.app.response.alerts.create.UpdateAlertResult
 import com.alercom.app.response.alerts.edit.EditAlertResult
 import com.alercom.app.response.alerts.edit.OnEditAlertResult
 import com.alercom.app.response.events.EventTypeResult
-import com.alercom.app.response.references.dynamic.DynamicReferenceResult
-import com.alercom.app.response.references.dynamic.OnDynamicReferenceResponse
 import com.alercom.app.response.references.statics.OnStaticReferenceResponse
 import com.alercom.app.response.references.statics.StaticReferenceResult
 import com.app.alercom.response.events.OnEventTypeResponse

@@ -16,15 +16,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.alercom.app.MainActivity
 import com.alercom.app.databinding.FragmentLoginBinding
 
 import com.alercom.app.R
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.loading.*
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels()
     private var _binding: FragmentLoginBinding? = null
 
     // This property is only valid between onCreateView and
@@ -44,14 +48,21 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+      /*  loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
+
+       */
 
         val usernameEditText = binding.username
         val passwordEditText = binding.password
         val loginButton = binding.btnLogin
-        val loadingProgressBar = binding.loading
+        val loadingProgressBar = binding.Btnloading
 
+        loginViewModel.loginForm.observe(viewLifecycleOwner, Observer {
+            showLoginUnautorize("funciona el login ${it.lastname}")
+        })
+
+/*
         loginViewModel.loginFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
                 if (loginFormState == null) {
@@ -82,8 +93,7 @@ class LoginFragment : Fragment() {
                 startActivity(intent)
             }
             if (loginResult.success != null) {
-                binding.loading.visibility = View.GONE
-                binding.btnLogin?.visibility = View.VISIBLE
+
                 updateUiWithUser(loginResult.success)
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -92,8 +102,11 @@ class LoginFragment : Fragment() {
             }
         })
 
+ */
+/*
         loginViewModel.loginAnonimusResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
+            _binding?.loader.apply { myLoader.visibility = View.GONE }
             //loading?.visibility = View.GONE
             //  login?.visibility = View.VISIBLE
             if (loginResult.unautorize != null) {
@@ -108,7 +121,7 @@ class LoginFragment : Fragment() {
                // startActivity(intent)
             }
             if (loginResult.success != null) {
-                binding.loading.visibility = View.GONE
+                binding.Btnloading.visibility = View.GONE
                 binding.btnLogin?.visibility = View.VISIBLE
                 updateUiWithUser(loginResult.success)
                 val intent = Intent(requireContext(), MainActivity::class.java)
@@ -117,7 +130,7 @@ class LoginFragment : Fragment() {
 
             }
         })
-
+*/
      /*   val afterTextChangedListener = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // ignore
@@ -148,6 +161,7 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
+            binding.btnLogin?.visibility = View.GONE
             loginViewModel.login(
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
@@ -157,7 +171,8 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_createUserFragment)
         }
         _binding?.btnReportAnonimo?.setOnClickListener{
-            loginViewModel.loginAnonimus()
+            _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+          //  loginViewModel.loginAnonimus()
         }
     }
 
@@ -170,7 +185,7 @@ class LoginFragment : Fragment() {
 
 
     private fun showLoginFailed(message: String?) {
-        binding.loading.visibility = View.GONE
+        binding.Btnloading.visibility = View.GONE
         // binding.btnLogin.visibility = View.VISIBLE
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
@@ -181,7 +196,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun showLoginUnautorize( string: String) {
-        binding.loading.visibility = View.GONE
+        binding.Btnloading.visibility = View.GONE
         // binding.btnLogin.visibility = View.VISIBLE
         Toast.makeText(requireContext(), string, Toast.LENGTH_SHORT).show()
     }

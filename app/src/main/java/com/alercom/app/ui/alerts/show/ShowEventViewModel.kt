@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alercom.app.data.model.Alert
-import com.alercom.app.repositories.AlertRepository
-import com.alercom.app.repositories.EventTypeRepository
-import com.alercom.app.repositories.ReferenceRepository
+import com.alercom.app.data.repositories.AlertRepository
+import com.alercom.app.data.repositories.EventTypeRepository
+import com.alercom.app.data.repositories.ReferenceRepository
 import com.alercom.app.request.CreateAlertRequest
 import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.alerts.create.OnUpdateAlertResult

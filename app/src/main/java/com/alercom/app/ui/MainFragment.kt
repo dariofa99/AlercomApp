@@ -16,8 +16,6 @@ import com.alercom.app.databinding.MainFragmentBinding
 import com.alercom.app.ui.alerts.list.ListAlertFragment
 import com.alercom.app.ui.login.LoginActivity
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
-import kotlinx.android.synthetic.main.edit_user_fragment.*
 
 class MainFragment : Fragment() {
 
@@ -48,7 +46,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(prefs?.getUserName().toString() == "anonimus"){
+        if(prefs?.getUserName().toString() == "anonimus" || !prefs?.getCan()){
            // findNavController().navigate(R.id.action_MainFragment_to_AlertFragment)
             _binding?.btnProfile?.visibility = View.GONE
             _binding?.btnViewMyAlerts?.visibility = View.GONE

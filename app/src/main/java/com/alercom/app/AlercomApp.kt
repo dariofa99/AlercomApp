@@ -3,7 +3,9 @@ package com.alercom.app
 import android.app.Application
 import android.content.Intent
 import com.alercom.app.network.Prefs
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class AlercomApp : Application() {
     companion object {
         lateinit var prefs: Prefs

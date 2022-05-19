@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.AlercomAppActionBar"
+
     tools:context=".ui.MainFragment">
 
     <include
-        android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
-        />
+        android:id="@+id/toolbar"
+        layout="@layout/action_bar_toolbar" />
     <ScrollView
         android:layout_marginTop="55dp"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="5dp"
-        android:paddingTop="55dp"
+        android:paddingTop="35dp"
         android:paddingRight="5dp">
 
 
@@ -29,11 +29,11 @@
             android:textAlignment="textStart"
             style="@style/Widget.MaterialComponents.Button.Icon"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:background="@drawable/buttom_main"
+            android:background="@drawable/button_main"
+            android:layout_height="80dp"
             android:text="Mi perfil"
-            android:textSize="23sp"
+            android:textSize="20sp"
             app:icon="@drawable/profile"
             app:iconSize="28pt" />
 
@@ -43,9 +43,9 @@
             android:textSize="23sp"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:background="@drawable/button_main"
+            android:layout_height="80dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:background="@drawable/buttom_main"
             android:paddingStart="23dp"
             android:text="Yo reporto"
             app:icon="@drawable/sharing"
@@ -57,9 +57,9 @@
             android:textSize="23sp"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:background="@drawable/buttom_main"
+            android:background="@drawable/button_main"
             android:paddingStart="23dp"
             android:text="Mis alertas"
             app:icon="@drawable/ic_baseline_emergency_share_24"
@@ -71,9 +71,9 @@
             android:textSize="23sp"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:background="@drawable/buttom_main"
+            android:background="@drawable/button_main"
             android:paddingStart="23dp"
             android:text="Alertas"
             app:icon="@drawable/ic_baseline_crisis_alert_24"
@@ -84,11 +84,11 @@
             android:id="@+id/btnInstRoutes"
             android:textAlignment="textStart"
             android:textSize="19sp"
-            style="@style/Widget.MaterialComponents.Button"
+
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:background="@drawable/buttom_main"
+            android:background="@drawable/button_main"
             android:paddingStart="23dp"
             android:text="Rutas institucionales"
             app:icon="@drawable/ic_baseline_local_library_24"
@@ -98,11 +98,10 @@
             android:id="@+id/btnDataProtection"
             android:textAlignment="textStart"
             android:textSize="20sp"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:background="@drawable/buttom_main"
+            android:background="@drawable/button_main"
             android:paddingStart="23dp"
             android:text="@string/protecci_n_de_datos"
             app:icon="@drawable/ic_baseline_save_24"

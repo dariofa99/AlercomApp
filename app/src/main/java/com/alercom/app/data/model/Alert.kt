@@ -16,6 +16,7 @@ data class Alert(
     @SerializedName("affected_animals"            ) var affectedAnimals           : Int?    = null,
     @SerializedName("affected_infrastructure"     ) var affectedInfrastructure    : Int?    = null,
     @SerializedName("affected_livelihoods"        ) var affectedLivelihoods       : Int?    = null,
+    @SerializedName("affected_enviroment"        ) var affectedEnviroment       : Int?    = null,
     @SerializedName("event_type_id"               ) var eventTypeId               : Int?    = null,
     @SerializedName("town_id"                     ) var townId                    : Int?    = null,
     @SerializedName("status_id"                   ) var statusId                  : Int?    = null,

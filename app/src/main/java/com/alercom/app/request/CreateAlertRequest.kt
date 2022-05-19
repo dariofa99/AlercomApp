@@ -12,6 +12,7 @@ data class CreateAlertRequest(
     @SerializedName("affected_animals"            ) val affectedAnimals: Boolean? = null,
     @SerializedName("affected_infrastructure"     ) val affectedInfrastructure: Boolean?     = null,
     @SerializedName("affected_livelihoods"        ) val affectedLivelihoods: Boolean?     = null,
+    @SerializedName("affected_enviroment"        ) val affectedEnviroment: Boolean?     = null,
     @SerializedName("event_type_id"               ) val eventTypeId: Int?     = null,
     @SerializedName("town_id"                     ) val townId: Int?     = null,
     @SerializedName("status_id"                   ) val statusId: Int?     = null,

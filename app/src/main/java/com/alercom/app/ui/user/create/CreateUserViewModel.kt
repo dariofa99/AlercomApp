@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alercom.app.data.model.User
-import com.alercom.app.repositories.UserRepository
+import com.alercom.app.data.repositories.UserRepository
 import com.alercom.app.request.CreateUserRequest
 import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.user.OnUserResponse

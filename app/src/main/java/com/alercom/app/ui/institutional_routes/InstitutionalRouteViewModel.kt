@@ -4,14 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alercom.app.data.model.InstitutionalRoute
-import com.alercom.app.data.model.User
-import com.alercom.app.repositories.InstitutionalRoutesRepository
+import com.alercom.app.data.repositories.InstitutionalRoutesRepository
 
 import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.institutional_routes.InstitutionalRouteResult
 import com.alercom.app.response.institutional_routes.OnInstitutionalRouteResponse
-import com.alercom.app.response.user.OnUserResponse
-import com.alercom.app.response.user.UserResult
 
 class InstitutionalRouteViewModel(private val institutionalRoutesRepository: InstitutionalRoutesRepository) : ViewModel() {
 

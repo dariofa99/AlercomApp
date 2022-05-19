@@ -176,6 +176,10 @@ class ShowEventFragment : Fragment() {
                     "1" -> _binding?.affectedFamily?.isChecked = true
                     "0" -> _binding?.affectedFamily?.isChecked = false
                 }
+                when(alert?.affectedEnviroment?.toString()){
+                    "1" -> _binding?.affectedEnviroment?.isChecked = true
+                    "0" -> _binding?.affectedEnviroment?.isChecked = false
+                }
                 _binding?.eventAditionalInformation?.setText(alert?.eventAditionalInformation)
                 _binding?.afectationsRangeId?.setText(alert?.affectationRange?.referenceName.toString()!!,false)
                 _binding?.eventCategoryIdId?.setText(alert?.eventType?.eventTypeName.toString()!!,false)
@@ -188,6 +192,10 @@ class ShowEventFragment : Fragment() {
                         .into(_binding?.eventPhoto)
                 }else{
                     Picasso.with(context).load(R.drawable.no_photo).into(_binding?.eventPhoto);
+                }
+                if(alert?.statusId != 11){
+                    _binding?.btnAcceptEvent?.visibility = View.GONE
+                    _binding?.btnCancelEvent?.visibility = View.GONE
                 }
                 _binding?.loader.apply { myLoader.visibility = View.GONE }
             }

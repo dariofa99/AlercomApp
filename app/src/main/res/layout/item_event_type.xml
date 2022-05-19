@@ -3,91 +3,78 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.AlercomApp"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <androidx.cardview.widget.CardView
-        android:minHeight="110dp"
-        android:background="@color/black"
+        android:layout_marginBottom="20dp"
+        android:minHeight="190dp"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="26dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        card_view:cardCornerRadius="6dp"
+        android:layout_marginEnd="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:minHeight="190dp"
+            android:background="@color/white"
+            android:layout_marginHorizontal="@dimen/cardview_default_elevation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <TextView
-                android:id="@+id/lblTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Alerta ambiental"
-                android:textSize="25sp">
-
-            </TextView>
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/linear"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                app:layout_constraintEnd_toEndOf="@+id/lblTitle"
-                android:background="@color/black"
-                android:orientation="horizontal">
-
-            </LinearLayout>
-
-            <LinearLayout
+                android:paddingStart="12dp"
                 android:orientation="vertical"
+                android:layout_weight="1"
+                android:background="@drawable/card_item"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
+                <TextView
 
-                <RelativeLayout
-                    android:orientation="horizontal"
-                    android:layout_marginHorizontal="@dimen/cardview_default_radius"
+                    android:textSize="20sp"
+                    android:id="@+id/lblTitle"
+                    android:padding="6dp"
+                    android:textColor="@color/quantum_orange"
+                    tools:text="Hello world"
+
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"/>
+                <TextView
 
-                    <ImageView
-                        android:id="@+id/iconRow"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_gravity="center"
-                        android:background="@color/white"
-                        android:src="@drawable/outline_arrow_forward_ios_black_18" />
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@id/iconRow"
-                        android:orientation="vertical"
-                        android:layout_toRightOf="@+id/iconRow">
-                        <TextView
-                            android:id="@+id/lblDescription"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentLeft="true"
-                            android:textSize="18sp"
-                            android:layout_toRightOf="@+id/iconRow"
-                            android:text="Esto es una prueba de klñkflñfkldkflñsdkflñsdkflñsdkflñsdakflñasdkflñasdkflñsdkflñksdflñksdalñfkldksflñksdaflñkasdlñfksdlñfkasdlñfkaslñdfklñsdkflñaskffkdslñfkasdlñfktexto lardo,asdf sfdfsd fsdfsdf fsdfsd fsdf f">
+                    android:textSize="17sp"
+                    android:id="@+id/lblDescription"
+                    android:padding="6dp"
+                    android:textColor="@color/white"
+                    tools:text="Hello world"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-                        </TextView>
-                    </LinearLayout>
-                </RelativeLayout>
+
             </LinearLayout>
+
+
+
+
+            <ImageView
+                android:id="@+id/iconRow"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:src="@drawable/outline_arrow_forward_ios_black_48" />
+
         </LinearLayout>
+
+
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

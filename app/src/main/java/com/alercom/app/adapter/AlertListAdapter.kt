@@ -33,7 +33,7 @@ class AlertListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }else{
             alert.eventDescription.toString()
         }
-        binding.lblEventDate.text = "${alert.eventDate}-Estado: ${alert.status?.referenceName}"
+        binding.lblEventDate.text = "${alert.eventDate}\nEstado: ${alert.status?.referenceName}"
         itemView.setOnClickListener{
             onClickListener(alert)
         }

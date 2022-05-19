@@ -302,6 +302,38 @@
 
                         </Switch>
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        tools:ignore="UseSwitchCompatOrMaterialXml">
+
+                        <ImageView
+
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/baseline_cloudy_snowing_black_20">
+
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="40dp"
+                            android:text="Medio ambiente"
+                            android:textSize="20sp"/>
+
+                        <Switch
+                            android:id="@+id/affectedEnviroment"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_gravity="right"
+                            android:layout_marginStart="@dimen/cardview_default_elevation">
+
+                        </Switch>
+                    </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/lAfectationsRangeId"

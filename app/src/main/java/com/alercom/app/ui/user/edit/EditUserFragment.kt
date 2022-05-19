@@ -7,17 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.alercom.app.MainActivity
-import com.alercom.app.R
 import com.alercom.app.data.model.User
 import com.alercom.app.databinding.EditUserFragmentBinding
 import com.alercom.app.request.CreateUserRequest
-import com.alercom.app.resources.MyTooblar
 import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
 import kotlinx.android.synthetic.main.edit_user_fragment.*
 import kotlinx.android.synthetic.main.loading.*

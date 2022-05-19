@@ -3,15 +3,13 @@ package com.alercom.app.ui.alerts.create.categories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.alercom.app.data.model.EventType
 import com.alercom.app.data.model.Reference
-import com.alercom.app.repositories.EventTypeRepository
-import com.alercom.app.repositories.ReferenceRepository
+import com.alercom.app.data.repositories.EventTypeRepository
+import com.alercom.app.data.repositories.ReferenceRepository
 import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.events.EventTypeResult
 import com.alercom.app.response.references.dynamic.DynamicReferenceResult
 import com.alercom.app.response.references.dynamic.OnDynamicReferenceResponse
-import com.app.alercom.response.events.OnEventTypeResponse
 
 class EventCategoryViewModel (private val  eventTypeRepository: EventTypeRepository,
                               private val  referenceRepository: ReferenceRepository) : ViewModel() {

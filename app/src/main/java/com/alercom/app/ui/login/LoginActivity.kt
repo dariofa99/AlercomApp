@@ -19,7 +19,9 @@ import com.alercom.app.MainActivity
 import com.alercom.app.databinding.ActivityLoginBinding
 
 import com.alercom.app.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
 

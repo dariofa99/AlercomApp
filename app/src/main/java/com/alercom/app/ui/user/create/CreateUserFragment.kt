@@ -11,13 +11,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.alercom.app.R
 import com.alercom.app.data.model.User
 import com.alercom.app.databinding.CreateUserFragmentBinding
-import com.alercom.app.databinding.EditUserFragmentBinding
 import com.alercom.app.request.CreateUserRequest
-import com.alercom.app.ui.user.edit.EditUserViewModel
-import com.alercom.app.ui.user.edit.EditUserViewModelFactory
 import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
 import kotlinx.android.synthetic.main.edit_user_fragment.*
 import kotlinx.android.synthetic.main.loading.*

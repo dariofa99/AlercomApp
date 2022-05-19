@@ -135,6 +135,10 @@ class EditAlertFragment : Fragment() {
                     "1" -> _binding?.affectedFamily?.isChecked = true
                     "0" -> _binding?.affectedFamily?.isChecked = false
                 }
+                when(alert?.affectedEnviroment?.toString()){
+                    "1" -> _binding?.affectedEnviroment?.isChecked = true
+                    "0" -> _binding?.affectedEnviroment?.isChecked = false
+                }
                 _binding?.eventAditionalInformation?.setText(alert?.eventAditionalInformation)
                 _binding?.afectationsRangeId?.setText(alert?.affectationRange?.referenceName.toString()!!,false)
                 _binding?.eventCategoryIdId?.setText(alert?.eventType?.eventTypeName.toString()!!,false)
@@ -150,6 +154,9 @@ class EditAlertFragment : Fragment() {
                     Picasso.with(context).load(R.drawable.no_photo).into(_binding?.eventPhoto);
                 }
                 _binding?.loader.apply { myLoader.visibility = View.GONE }
+                if(alert?.statusId != 11){
+                    _binding?.btnUpdateAlert?.visibility = View.GONE
+                }
             }
         })
 
@@ -215,6 +222,7 @@ class EditAlertFragment : Fragment() {
                     affectedAnimals = _binding?.affectedAnimals?.isChecked,
                     affectedInfrastructure = _binding?.affectedInfrastructure?.isChecked,
                     affectedLivelihoods = _binding?.affectedLivelihoods?.isChecked,
+                    affectedEnviroment = _binding?.affectedEnviroment?.isChecked,
                     eventTypeId = _eventType?.id,
                     townId = alert?.townId,
                     statusId = alert?.statusId,
