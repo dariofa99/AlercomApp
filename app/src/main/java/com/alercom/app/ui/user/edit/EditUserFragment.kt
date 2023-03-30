@@ -15,9 +15,7 @@ import com.alercom.app.data.model.User
 import com.alercom.app.databinding.EditUserFragmentBinding
 import com.alercom.app.request.CreateUserRequest
 import com.alercom.app.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
-import kotlinx.android.synthetic.main.edit_user_fragment.*
-import kotlinx.android.synthetic.main.loading.*
+
 
 
 
@@ -48,13 +46,7 @@ class EditUserFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         prefs = Prefs(requireContext())
-       /* val tooblar:Toolbar? = view?.findViewById<Toolbar>(R.id.toolbar)
-        (requireActivity() as MainActivity).setSupportActionBar(tooblar)
-        (requireActivity() as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (requireActivity() as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(true)*/
-
-        // MyTooblar().show(activity as AppCompatActivity,"User Edit",true)
-          viewModel = ViewModelProvider(this, EditUserViewModelFactory())[EditUserViewModel::class.java]
+       viewModel = ViewModelProvider(this, EditUserViewModelFactory())[EditUserViewModel::class.java]
 
         viewModel.userEditResult.observe(this@EditUserFragment, Observer {
             val userEditResult = it ?: return@Observer
@@ -66,16 +58,16 @@ class EditUserFragment : Fragment() {
                 _binding?.phoneNumber?.setText(user?.phoneNumber)
                 _binding?.username?.setText(user?.username)
                 _binding?.loader.apply {
-                    myLoader.visibility = View.GONE
+                    _binding?.loader?.myLoader?.visibility = View.GONE
                 }
             }
             if(userEditResult.unautorize!=null){
-                prefs.wipe();
+                prefs.saveToken("");
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 _binding?.loader.apply {
-                    myLoader.visibility = View.GONE
+                    _binding?.loader?.myLoader?.visibility = View.GONE
                 }
                 showMessage(userEditResult.unautorize.error!!)
             }
@@ -85,7 +77,7 @@ class EditUserFragment : Fragment() {
             val userUpdateResult = it ?: return@Observer
 
             _binding?.loader.apply {
-                myLoader.visibility = View.GONE
+                _binding?.loader?.myLoader?.visibility = View.GONE
             }
             if(userUpdateResult.success!=null){
                 user = userUpdateResult.success
@@ -93,7 +85,7 @@ class EditUserFragment : Fragment() {
                 setContentPassword()
                 showMessage("Datos actualizados con éxito")
                 _binding?.loader.apply {
-                    myLoader.visibility = View.GONE
+                    _binding?.loader?.myLoader?.visibility = View.GONE
                 }
             }
 
@@ -114,13 +106,15 @@ class EditUserFragment : Fragment() {
 
         _binding?.toolbar?.apply {
             textTooblar.text = "ACTUALIZAR PERFIL"
-            toolbar.btn_Back.setOnClickListener {
+            _binding?.toolbar?.btnBack?.setOnClickListener {
                 findNavController().navigateUp()
             }
         }
 
         _binding?.contentInputsPassword?.visibility = View.GONE
-        _binding?.loader.apply {myLoader.visibility = View.VISIBLE}
+        _binding?.loader.apply {
+            _binding?.loader?.myLoader?.visibility = View.VISIBLE
+        }
         viewModel.getAuthUser()
 
         _binding?.checkboxChangePass?.setOnClickListener {
@@ -152,7 +146,9 @@ class EditUserFragment : Fragment() {
                     ), user?.id!!
                 )
             }
-            _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+            _binding?.loader.apply {
+                _binding?.loader?.myLoader?.visibility = View.VISIBLE
+            }
         }
     }
 

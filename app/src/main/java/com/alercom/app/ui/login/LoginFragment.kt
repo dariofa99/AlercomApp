@@ -3,33 +3,32 @@ package com.alercom.app.ui.login
 import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.alercom.app.AlercomApp
 import com.alercom.app.MainActivity
 import com.alercom.app.databinding.FragmentLoginBinding
-
 import com.alercom.app.R
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.loading.*
+import com.alercom.app.network.Prefs
+import com.alercom.app.ui.institutional_routes.InstitutionalRouteFragmentDirections
 
 
 class LoginFragment : Fragment() {
 
+    companion object{
+        lateinit var prefs: Prefs
+    }
+
     private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentLoginBinding? = null
+    val app = requireContext() as AlercomApp
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -48,8 +47,12 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+        prefs = Prefs(context = requireContext())
+      //  prefs.wipe()
+        if(!prefs.getPrivacyPolicy()){
+            findNavController().navigate(R.id.action_loginFragment_to_privacyPolicyFragment)
+        }
+        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())[LoginViewModel::class.java]
 
 
 
@@ -96,7 +99,7 @@ class LoginFragment : Fragment() {
                 startActivity(intent)
             }
             if (loginResult.success != null) {
-
+                //app.room.getUserDao().store()
                 updateUiWithUser(loginResult.success)
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -109,21 +112,17 @@ class LoginFragment : Fragment() {
 
         loginViewModel.loginAnonimusResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
-            _binding?.loader.apply { myLoader.visibility = View.GONE }
+            _binding?.loader?.apply { myLoader.visibility = View.GONE }
             //loading?.visibility = View.GONE
             //  login?.visibility = View.VISIBLE
             if (loginResult.unautorize != null) {
                 loginResult.unautorize.error?.let { it1 -> showLoginUnautorize(it1) }
-                //val intent = Intent(requireContext(), LoginActivity::class.java)
-                //startActivity(intent)
             }
             if (loginResult.error != null) {
                 loginResult.error?.error.let { it1 -> showLoginFailed(it1) }
-                //showLoginFailed(loginResult.error)
-               // val intent = Intent(requireContext(), LoginActivity::class.java)
-               // startActivity(intent)
             }
             if (loginResult.success != null) {
+
                 binding.Btnloading.visibility = View.GONE
                 binding.btnLogin?.visibility = View.VISIBLE
                 updateUiWithUser(loginResult.success)
@@ -174,14 +173,26 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_createUserFragment)
         }
         _binding?.btnReportAnonimo?.setOnClickListener{
-            _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+            _binding?.loader?.apply { myLoader.visibility = View.VISIBLE }
             loginViewModel.loginAnonimus()
         }
+
+        _binding?.btnPrivacyPolicy?.setOnClickListener {
+            getNavController()?.navigate(
+
+                LoginFragmentDirections.actionLoginFragmentToInstitutionalRoutePageFragment(
+                    namePage = "Política de privacidad",
+                    url = "https://api.alercom.org/policy"
+                )
+            )
+
+
+        }
+
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome) + model.displayName
-        // TODO : initiate successful logged in experience
+        val welcome = "${getString(R.string.welcome)}"
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
     }
@@ -189,7 +200,6 @@ class LoginFragment : Fragment() {
 
     private fun showLoginFailed(message: String?) {
         binding.Btnloading.visibility = View.GONE
-        // binding.btnLogin.visibility = View.VISIBLE
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
@@ -200,7 +210,10 @@ class LoginFragment : Fragment() {
 
     private fun showLoginUnautorize( string: String) {
         binding.Btnloading.visibility = View.GONE
-        // binding.btnLogin.visibility = View.VISIBLE
-        Toast.makeText(requireContext(), string, Toast.LENGTH_SHORT).show()
+       Toast.makeText(requireContext(), string, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getNavController(): NavController?{
+        return  (activity as? LoginActivity)?.navController
     }
 }

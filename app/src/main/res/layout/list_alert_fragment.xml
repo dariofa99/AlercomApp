@@ -10,12 +10,41 @@
         android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerListAlert"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <androidx.core.widget.NestedScrollView
         android:layout_marginTop="55dp"
-        android:layout_marginBottom="10dp"
-        />
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerListAlert"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="10dp"
+                tools:listitem="@layout/item_alert_list"
+                />
+
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/recyclerProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </ProgressBar>
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <include
+        android:id="@+id/loader"
+        layout="@layout/loading"/>
 
 </FrameLayout>

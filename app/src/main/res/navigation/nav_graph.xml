@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_MainFragment_to_listAlertFragment"
             app:destination="@id/listAlertFragment" />
+        <action
+            android:id="@+id/action_MainFragment_to_alercomUseFragment"
+            app:destination="@id/alercomUseFragment" />
 
 
     </fragment>
@@ -172,5 +175,10 @@
             android:name="alertId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/alercomUseFragment"
+        android:name="com.alercom.app.ui.use.AlercomUseFragment"
+        android:label="fragment_use_alercom"
+        tools:layout="@layout/fragment_use_alercom" />
 
 </navigation>

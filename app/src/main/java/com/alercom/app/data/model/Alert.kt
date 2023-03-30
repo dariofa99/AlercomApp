@@ -3,7 +3,6 @@ package com.alercom.app.data.model
 import com.google.gson.annotations.SerializedName
 
 data class Alert(
-
     @SerializedName("id"                          ) var id                        : Int?    = null,
     @SerializedName("event_description"           ) var eventDescription          : String? = null,
     @SerializedName("event_date"                  ) var eventDate                 : String? = null,
@@ -27,6 +26,8 @@ data class Alert(
     @SerializedName("status"                      ) var status                    : Reference? = Reference(),
     @SerializedName("files"                       ) var files                     : ArrayList<File>? = null,
     @SerializedName("event_type"                  ) var eventType                 : EventType?       = EventType(),
+    @SerializedName("user"                        ) var user                      : User?            = User(),
     @SerializedName("affectation_range"           ) var affectationRange          : Reference? = Reference()
 
 )
+

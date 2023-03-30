@@ -2,6 +2,7 @@ package com.alercom.app.ui
 
 import com.alercom.app.network.Prefs
 import android.content.Intent
+import android.net.Uri
 import com.alercom.app.AlercomApp.Companion.prefs
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.alercom.app.AlercomApp
 import com.alercom.app.R
 import com.alercom.app.databinding.MainFragmentBinding
@@ -28,6 +30,7 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var prefs: Prefs
+    private lateinit var room: Room
 
 
     override fun onCreateView(
@@ -41,12 +44,14 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         prefs = Prefs(requireContext())
+        //room
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(prefs?.getUserName().toString() == "anonimus" || !prefs?.getCan()!!){
+        if(prefs?.getUserName().toString() == "anonymous"){
            // findNavController().navigate(R.id.action_MainFragment_to_AlertFragment)
             _binding?.btnProfile?.visibility = View.GONE
             _binding?.btnViewMyAlerts?.visibility = View.GONE
@@ -54,10 +59,13 @@ class MainFragment : Fragment() {
             _binding?.btnViewAlerts?.visibility = View.GONE
             _binding?.btnInstRoutes?.visibility = View.GONE
         }
+        System.out.println(prefs?.canChangeStatus())
+        if(!prefs?.canChangeStatus()!!){
+            _binding?.btnViewAlerts?.visibility = View.GONE
+        }
 
         _binding?.toolbar?.apply {
             textTooblar.text = "ALERCOM"
-            //toolbar.btn_Back.setImageResource(R.drawable.conect)
             Picasso.with(context)
                 .load(R.drawable.conect).resize(150,150)
                 .into(_binding?.toolbar?.btnBack);
@@ -89,10 +97,23 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_MainFragment_to_listAlertFragment,bundle)
         }
 
+        _binding?.btnAlercomUse?.setOnClickListener{
+            findNavController().navigate(R.id.action_MainFragment_to_alercomUseFragment)
+        }
+
         _binding?.btnLogout?.setOnClickListener {
-            prefs.wipe();
+            prefs.saveToken("");
             val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+
+        }
+        _binding?.btnSendWM?.setOnClickListener {
+
+            val intent = Intent()
+            intent.action = Intent.ACTION_VIEW
+            val url = "whatsapp://send?phone=573167414665"
+            intent.data = Uri.parse(url)
             startActivity(intent)
 
         }

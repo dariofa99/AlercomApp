@@ -15,9 +15,7 @@ import com.alercom.app.R
 import com.alercom.app.data.model.User
 import com.alercom.app.databinding.CreateUserFragmentBinding
 import com.alercom.app.request.CreateUserRequest
-import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
-import kotlinx.android.synthetic.main.edit_user_fragment.*
-import kotlinx.android.synthetic.main.loading.*
+
 
 class CreateUserFragment : Fragment() {
 
@@ -46,18 +44,18 @@ class CreateUserFragment : Fragment() {
             if(userEditResult.success!=null){
                 user = userEditResult.success
                 showDialog("Registro exitoso!",getString(R.string.email_confirmation))
-                _binding?.loader.apply {myLoader.visibility = View.GONE}
+                _binding?.loader?.apply {myLoader.visibility = View.GONE}
                 findNavController().navigateUp()
             }
             if(userEditResult.errors!=null){
                 var cadena = ""
                 userEditResult.errors.forEach {cadena += "$it \n"}
                 showDialog("Importante!","$cadena")
-                _binding?.loader.apply {myLoader.visibility = View.GONE}
+                _binding?.loader?.apply {myLoader.visibility = View.GONE}
             }
             if(userEditResult.error!=null){
                 showMessage("${userEditResult.error.error}")
-                _binding?.loader.apply {myLoader.visibility = View.GONE}
+                _binding?.loader?.apply {myLoader.visibility = View.GONE}
             }
         })
 
@@ -70,13 +68,16 @@ class CreateUserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding?.toolbar?.apply {
             textTooblar.text = "REGISTRO"
-            toolbar.btn_Back.setOnClickListener {
+            btnBack.setOnClickListener {
                 findNavController().navigateUp()
             }
         }
         _binding?.btnStoreUser?.setOnClickListener {
-        System.out.println("wuiii")
-            viewModelCreate.store(
+
+            if(!_binding?.aceptedPrivacy?.isChecked!!){
+                showDialog("Atención","Debes aceptar la política de privacidad.")
+            }else{
+                viewModelCreate.store(
                     CreateUserRequest(
                         name = _binding?.name?.text.toString(),
                         lastname = _binding?.lastName?.text.toString(),
@@ -87,7 +88,10 @@ class CreateUserFragment : Fragment() {
                         confirmpassword = _binding?.confirmPassword?.text.toString()
                     ))
 
-            _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+                _binding?.loader?.apply { myLoader.visibility = View.VISIBLE }
+            }
+
+
         }
     }
 
@@ -102,7 +106,6 @@ class CreateUserFragment : Fragment() {
         builder.setMessage(msg)
             .setPositiveButton("Entendido",DialogInterface.OnClickListener() {
                     dialogInterface: DialogInterface, i: Int ->
-                       //Dario   Toast.makeText(requireContext(),"Entendido",Toast.LENGTH_LONG).show()
 
             }).show()
 

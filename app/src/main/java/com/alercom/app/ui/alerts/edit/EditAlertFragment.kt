@@ -42,9 +42,6 @@ import com.alercom.app.resources.MapsActivity
 import com.alercom.app.resources.RealPathUtil
 import com.app.alercom.adapter.AffectsRangeSpinnerAdapter
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
-import kotlinx.android.synthetic.main.edit_user_fragment.*
-import kotlinx.android.synthetic.main.loading.*
 import java.io.File
 
 class EditAlertFragment : Fragment() {
@@ -64,7 +61,7 @@ class EditAlertFragment : Fragment() {
     private var typeEventAdapter :  TypeEventAdapter? = null
     private var image :File? = null
     private var currentPhotoPath: String? = null
-    var latestTmpUri : Uri? = null
+    private var latestTmpUri : Uri? = null
     private val REQUEST_PERMISSION_CAMERA = 100
     private var alert : Alert? = null
     private val RESULT_MAP = 2
@@ -111,8 +108,8 @@ class EditAlertFragment : Fragment() {
 
             if (eventResult.success != null) {
                  alert = eventResult.success
-                _binding?.eventTitle?.text = alert?.eventType?.eventTypeName
-                _binding?.eventGeneralDescription?.text = alert?.eventType?.eventTypeDescription
+                _binding?.eventTitle?.text = alert?.eventType?.category?.referenceName
+                _binding?.eventGeneralDescription?.text = alert?.eventType?.category?.referenceDescription
                 _binding?.eventDescription?.setText(alert?.eventDescription)
                 _binding?.eventDate?.setText(alert?.eventDate)
                 _binding?.eventPlace?.setText(alert?.eventPlace)
@@ -166,9 +163,14 @@ class EditAlertFragment : Fragment() {
                 }else{
                     Picasso.with(context).load(R.drawable.no_photo).into(_binding?.eventPhoto);
                 }
-                _binding?.loader.apply { myLoader.visibility = View.GONE }
+                _binding?.loader?.myLoader?.visibility = View.GONE
+                _binding?.btnSelectImage?.visibility = View.VISIBLE
+                _binding?.btnOpenMaps?.visibility = View.VISIBLE
+
+                _binding?.toolbar?.btnDelete?.visibility = View.VISIBLE
                 if(alert?.statusId != 11){
                     _binding?.btnUpdateAlert?.visibility = View.GONE
+                    _binding?.toolbar?.btnDelete?.visibility = View.GONE
                 }
             }
         })
@@ -176,8 +178,15 @@ class EditAlertFragment : Fragment() {
         viewModel.alertUpdateResult.observe(this@EditAlertFragment, Observer {
             val alertUpdateResult = it ?: return@Observer
             if (alertUpdateResult.success != null) {
-                _binding?.loader.apply { myLoader.visibility = View.GONE }
                 showMessage("Alerta actualizada con éxito")
+                findNavController().navigateUp()
+            }
+        })
+
+        viewModel.deleteAlertResult.observe(this@EditAlertFragment, Observer {
+            val alertUpdateResult = it ?: return@Observer
+            if (alertUpdateResult.success != null) {
+                showMessage("Alerta eliminada con éxito")
                 findNavController().navigateUp()
             }
         })
@@ -188,11 +197,14 @@ class EditAlertFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding?.toolbar?.apply {
             textTooblar.text = "Actualizando alerta"
-            toolbar.btn_Back.setOnClickListener {
+            btnBack.setOnClickListener {
                 findNavController().navigateUp()
             }
         }
-        _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+
+         _binding?.loader?.myLoader?.visibility = View.VISIBLE
+        _binding?.btnSelectImage?.visibility = View.GONE
+        _binding?.btnOpenMaps?.visibility = View.GONE
         viewModel.getAffectsRange()
         viewModel.getEventTypes(args.categoryId)
 
@@ -228,6 +240,7 @@ class EditAlertFragment : Fragment() {
             intent.putExtra("latitude",latitude)
             intent.putExtra("longitude",longitude)
             intent.putExtra("address",alert?.eventPlace)
+            intent.putExtra("view","edit")
             setMapsValue.launch(intent)
 
         }
@@ -235,7 +248,12 @@ class EditAlertFragment : Fragment() {
         _binding?.btnUpdateAlert?.setOnClickListener{
 
             if(validateForm()) {
-                _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+                _binding?.toolbar?.btnDelete?.visibility = View.GONE
+                _binding?.loader?.myLoader?.visibility = View.VISIBLE
+                _binding?.btnSelectImage?.visibility = View.GONE
+                _binding?.btnOpenMaps?.visibility = View.GONE
+                _binding?.btnSelectFoto?.visibility = View.GONE
+                _binding?.btnTakePhoto?.visibility = View.GONE
 
                 val newAlert = CreateAlertRequest(
                     eventDescription =  _binding?.eventDescription?.text.toString(),
@@ -259,6 +277,24 @@ class EditAlertFragment : Fragment() {
 
             }
         }
+
+        _binding?.toolbar?.btnDelete?.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("¡Atención!")
+            builder.setMessage("¿Está segura/o de eliminar la alerta?")
+                .setNegativeButton("No, cancelar",DialogInterface.OnClickListener(){
+                        dialogInterface: DialogInterface, i: Int ->
+
+                })
+                .setPositiveButton("Si, eliminar", DialogInterface.OnClickListener() {
+                        dialogInterface: DialogInterface, i: Int ->
+                    _binding?.loader?.apply { myLoader.visibility = View.VISIBLE }
+                    viewModel.delete(alert?.id!!)
+                })
+                .show()
+
+        }
+
     }
 
     private fun checkPermissionFile(){

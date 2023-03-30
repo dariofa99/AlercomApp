@@ -10,6 +10,7 @@ import retrofit2.Response
 import com.alercom.app.network.retrofit
 import com.alercom.app.response.events.EventTypeResponse
 import com.alercom.app.data.services.EventTypeService
+import com.alercom.app.response.ErrorResponse
 
 
 class EventTypeRepository {
@@ -23,6 +24,11 @@ class EventTypeRepository {
 
                 if(response.code() == 200){
                     callback.success(response.body())
+                }
+                if(response.code() == 403){
+                    val error = ErrorResponse("Sesión expirada, vuelve a iniciar sesión")
+                    callback.unautorize(error)
+
                 }
 
             }

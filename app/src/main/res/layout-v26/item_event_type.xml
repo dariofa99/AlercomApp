@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.AlercomApp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginBottom="20dp"
+        android:minHeight="190dp"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:minHeight="190dp"
+            android:background="@color/white"
+            android:layout_marginHorizontal="@dimen/cardview_default_elevation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:paddingStart="12dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:background="@drawable/card_item"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <TextView
+
+                    android:textSize="20sp"
+                    android:id="@+id/lblTitle"
+                    android:padding="6dp"
+                    android:textColor="@color/quantum_orange"
+                    tools:text="Hello world"
+                    android:justificationMode="inter_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:paddingRight="10dp"
+                    android:textSize="17sp"
+                    android:id="@+id/lblDescription"
+                    android:padding="6dp"
+                    android:textColor="@color/white"
+                    tools:text="Hello world"
+                    android:justificationMode="inter_word"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+
+
+            <ImageView
+                android:id="@+id/iconRow"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:src="@drawable/outline_arrow_forward_ios_black_48" />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:background="@drawable/item_card"
         android:layout_marginBottom="20dp"
         android:minHeight="190dp"
         android:id="@+id/card_view"
@@ -25,8 +26,9 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
+
             android:minHeight="190dp"
-            android:background="@color/white"
+            android:background="@drawable/item_card"
             android:layout_marginHorizontal="@dimen/cardview_default_elevation"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -45,25 +47,24 @@
                     android:padding="6dp"
                     android:textColor="@color/quantum_orange"
                     tools:text="Hello world"
-
+                    android:justificationMode="inter_word"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-
+                    android:layout_marginEnd="10dp"
                     android:textSize="17sp"
                     android:id="@+id/lblDescription"
                     android:padding="6dp"
                     android:textColor="@color/white"
                     tools:text="Hello world"
+                    android:justificationMode="inter_word"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="0dp"
+                    tools:ignore="NestedWeights,RtlSymmetry" />
 
 
             </LinearLayout>
-
-
-
 
             <ImageView
                 android:id="@+id/iconRow"

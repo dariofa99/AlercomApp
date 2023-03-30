@@ -5,7 +5,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Bienvenido a Alercom"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -32,6 +32,7 @@
     <string name="textview">TextView</string>
     <string name="mi_perfil">Mi perfil</string>
     <string name="protecci_n_de_datos">Protección de datos</string>
+    <string name="alercom_use">Uso de Alercom</string>
     <string name="medios_de_vida">Medios de vida:</string>
     <string name="message_take_photo">Evite tomar fotografías a personas sin su consentimiento, solicite permiso previamente
         antes de cualquier acción al respecto. No realice registro fotográfico a menores de edad. Las fotografías deben
@@ -43,5 +44,12 @@
     </string>
     <string name="animales">Animales:</string>
     <string name="infraestructura">Infraestructura:</string>
+    <string name="alercom_use_description">Alercom es una herramienta que nos permite prevenir,
+        mitigar, alertar y gestionar acciones conjuntas para responder a eventos relacionados con
+        nuestra seguridad comunitaria, ambiental y de salud pública en nuestro territorio.
+        Alerta en Yo Reporto</string>
+    <string name="privacy_policy">Bienvenida/o, esta es la aplicación de reporte de alertas comunitarias llamada Alercom, es una herramienta de protección y respuesta rápida en caso de presentarse un evento ambiental, de salud o comunitario que afecte a la población y el medio ambiente. Su uso está disponible para líderes/as comunitarias gestores en los territorios del bienestar comunitario en el Departamento de Nariño y Antioquia”. Antes de realizar el registro en nuestra página, te recomendamos revisar la POLÍTICA DE PRIVACIDAD - TÉRMINOS Y CONDICIONES.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

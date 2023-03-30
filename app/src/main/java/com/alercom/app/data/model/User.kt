@@ -14,7 +14,6 @@ data class User(
     @SerializedName("town_id"           ) var townId          : Int?             = null,
     @SerializedName("status_id"         ) var statusId        : Int?             = null,
     @SerializedName("created_at"        ) var createdAt       : String?          = null,
-    @SerializedName("updated_at"        ) var updatedAt       : String?          = null,
-   // @SerializedName("roles"             ) var roles           : ArrayList<Roles> = arrayListOf()
+    @SerializedName("updated_at"        ) var updatedAt       : String?          = null
 
 )

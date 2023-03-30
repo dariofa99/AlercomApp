@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.RotateAnimation
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -18,10 +19,8 @@ import com.alercom.app.data.model.Reference
 import com.alercom.app.databinding.EventCategoryFragmentBinding
 import com.alercom.app.network.Prefs
 import com.alercom.app.ui.login.LoginActivity
-import com.alercom.app.ui.user.edit.EditUserFragment
-import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
-import kotlinx.android.synthetic.main.edit_user_fragment.*
-import kotlinx.android.synthetic.main.loading.*
+import java.util.*
+
 
 class EventCategoryFragment : Fragment() {
 
@@ -33,8 +32,8 @@ class EventCategoryFragment : Fragment() {
     private lateinit var viewModelEvent: EventCategoryViewModel
     private var _binding: EventCategoryFragmentBinding?  = null
     private val binding get() = _binding!!
-
-
+    private var angle :Int = 0
+    private var random :Random? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,36 +49,26 @@ class EventCategoryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         prefs = Prefs(requireContext())
-        viewModelEvent = ViewModelProvider(this, EventCategoryViewModelFactory())
-            .get(EventCategoryViewModel::class.java)
-
-     /*   viewModel.eventResult.observe(this@EventFragment, Observer {
-            val eventResult = it ?: return@Observer
-
-            if (eventResult.success != null) {
-                val recycler = _binding?.recyclerEventType
-                recycler?.layoutManager = LinearLayoutManager(requireContext())
-                recycler?.adapter = EventTypeAdapter(eventResult.success) { eventType -> onClickListener(eventType)}
-            }
-
-        })*/
+        viewModelEvent = ViewModelProvider(this, EventCategoryViewModelFactory())[EventCategoryViewModel::class.java]
 
         viewModelEvent.eventCategories.observe(this@EventCategoryFragment, Observer {
             val eventResult = it ?: return@Observer
 
             if (eventResult.success != null) {
-               _binding?.loader.apply {myLoader.visibility = View.GONE}
+               _binding?.loader?.apply {
+                   myLoader.visibility = View.GONE
+               }
                 val recycler = _binding?.recyclerEventType
                 recycler?.layoutManager = LinearLayoutManager(requireContext())
                 recycler?.adapter = EventCategoryAdapter(eventResult.success) { eventType -> onClickListener(eventType)}
             }
             if(eventResult.unautorize!=null){
-                EditUserFragment.prefs.wipe();
+                prefs.saveToken("");
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
-                _binding?.loader.apply {
-                    myLoader.visibility = View.GONE
+                _binding?.loader?.apply {
+                    myLoader?.visibility = View.GONE
                 }
                Toast.makeText(requireContext(),eventResult.unautorize.error,Toast.LENGTH_LONG).show()
             }
@@ -101,13 +90,14 @@ class EventCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding?.loader.apply {myLoader.visibility = View.VISIBLE}
+        _binding?.loader.apply { _binding?.loader?.myLoader?.visibility = View.VISIBLE}
 
         _binding?.toolbar?.apply {
             textTooblar.text = "YO REPORTO"
-            toolbar.btn_Back.setOnClickListener {
+            _binding?.toolbar?.btnBack?.setOnClickListener {
                 findNavController().navigateUp()
             }
+
         }
         viewModelEvent.getEventsCategories()
 
@@ -118,3 +108,5 @@ class EventCategoryFragment : Fragment() {
     }
 
 }
+
+

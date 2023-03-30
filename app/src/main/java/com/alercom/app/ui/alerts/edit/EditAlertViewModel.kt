@@ -31,6 +31,9 @@ class EditAlertViewModel(private val affectsRangeRepository: ReferenceRepository
     private val _alertUpdateResult = MutableLiveData<UpdateAlertResult>()
     val alertUpdateResult: LiveData<UpdateAlertResult> = _alertUpdateResult
 
+    private val _deleteAlertResult = MutableLiveData<UpdateAlertResult>()
+    val deleteAlertResult: LiveData<UpdateAlertResult> = _deleteAlertResult
+
     private val _rangesResult = MutableLiveData<StaticReferenceResult>()
     val rangesResult: LiveData<StaticReferenceResult> = _rangesResult
 
@@ -89,10 +92,34 @@ class EditAlertViewModel(private val affectsRangeRepository: ReferenceRepository
         })
     }
 
+    fun delete(alertId:Int)  {
+
+        alertRepository.delete(alertId = alertId,object : OnUpdateAlertResult {
+            override fun success(alert: Alert?) {
+                _deleteAlertResult.value = UpdateAlertResult(success = alert)
+            }
+
+
+            override fun unautorize(unautorize: ErrorResponse) {
+                //_userResult.value = UserResult(unautorize = unautorize)
+            }
+
+            override fun error(auth: ErrorResponse) {
+
+            }
+
+            override fun errors(errors: ArrayList<String>?) {
+                //_userResult.value = UserResult(errors = errors)
+            }
+
+        })
+    }
+
     fun update(id:Int,newAlert: CreateAlertRequest, file: File?) {
 
         alertRepository.update(id,newAlert,file, object : OnUpdateAlertResult {
             override fun success(eventReport: Alert?) {
+                System.out.println("Joder ${eventReport}")
                 _alertUpdateResult?.value = UpdateAlertResult(success = eventReport)
             }
             override fun unautorize(errorResponse: ErrorResponse) {

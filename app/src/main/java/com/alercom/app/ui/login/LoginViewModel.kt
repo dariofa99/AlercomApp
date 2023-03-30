@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import com.alercom.app.R
 import com.alercom.app.data.Result
+import com.alercom.app.data.model.auth.Auth
 import com.alercom.app.data.repositories.LoginRepository
 import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.auth.AuthResponse
@@ -25,8 +26,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     fun login(username: String, password: String)  {
         loginRepository.login(username, password,object : OnAuthResponse {
-            override fun auth(auth: Result.Success<Response<AuthResponse>>) {
-                _loginResult.value = LoginResult(success = LoggedInUserView(auth.data.message()))
+            override fun auth(auth: Auth) {
+                val name = "${auth.name} ${auth.lastname}"
+                _loginResult.value = LoginResult(success = LoggedInUserView(name) )
             }
 
             override fun unautorize(unautorize: ErrorResponse) {
@@ -70,8 +72,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     fun loginAnonimus() {
         loginRepository.loginAnonimus(object : OnAuthResponse {
-            override fun auth(auth: Result.Success<Response<AuthResponse>>) {
-                _loginAnonimusResult.value = LoginResult(success = LoggedInUserView(auth.data.message()))
+            override fun auth(auth: Auth) {
+                val name = "${auth.name} ${auth.lastname}"
+                _loginResult.value = LoginResult(success = LoggedInUserView(name) )
             }
 
             override fun unautorize(unautorize: ErrorResponse) {

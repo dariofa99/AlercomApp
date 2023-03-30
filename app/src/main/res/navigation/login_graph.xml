@@ -15,6 +15,12 @@
         <action
             android:id="@+id/action_loginFragment_to_eventFragment"
             app:destination="@id/eventFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_institutionalRoutePageFragment"
+            app:destination="@id/institutionalRoutePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/createUserFragment"
@@ -26,4 +32,23 @@
         android:name="com.alercom.app.ui.alerts.create.categories.EventCategoryFragment"
         android:label="event_fragment"
         tools:layout="@layout/event_category_fragment" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.alercom.app.ui.privacy_policy.PrivacyPolicyFragment"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" >
+        <action
+            android:id="@+id/action_privacyPolicyFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/institutionalRoutePageFragment"
+        android:name="com.alercom.app.ui.institutional_routes.page.InstitutionalRoutePageFragment"
+        android:label="fragment_institutional_route_page"
+        tools:layout="@layout/fragment_institutional_route_page" >
+        <argument
+            android:name="namePage"
+            app:argType="string" />
+        <argument android:name="url" />
+    </fragment>
 </navigation>

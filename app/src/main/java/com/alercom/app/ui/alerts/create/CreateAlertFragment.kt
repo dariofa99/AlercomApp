@@ -42,13 +42,8 @@ import com.alercom.app.resources.MapViewFragment
 import com.alercom.app.resources.MapsActivity
 import com.alercom.app.resources.RealPathUtil
 import com.app.alercom.adapter.AffectsRangeSpinnerAdapter
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
-import kotlinx.android.synthetic.main.edit_user_fragment.*
-import kotlinx.android.synthetic.main.loading.*
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
+
 
 
 class CreateAlertFragment  : Fragment() {
@@ -119,7 +114,7 @@ class CreateAlertFragment  : Fragment() {
         viewModel.eventReportResult.observe( this@CreateAlertFragment, Observer {
             val eventReportResultado = it ?: return@Observer
             if(eventReportResultado.success!=null){
-                _binding?.loader.apply { myLoader.visibility = View.GONE }
+               // _binding?.loader?.myLoader?.visibility = View.GONE
                 showMessage("Alerta enviada con éxito")
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -141,7 +136,7 @@ class CreateAlertFragment  : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding?.toolbar?.apply {
             textTooblar.text = "Creando alerta"
-            toolbar.btn_Back.setOnClickListener {
+            btnBack?.setOnClickListener {
                 findNavController().navigateUp()
             }
         }
@@ -176,6 +171,8 @@ class CreateAlertFragment  : Fragment() {
 
         _binding?.btnOpenMaps?.setOnClickListener{
             val intent = Intent(requireContext(),MapsActivity::class.java)
+
+            intent.putExtra("view","create")
             setMapsValue.launch(intent)
 
         }
@@ -186,7 +183,9 @@ class CreateAlertFragment  : Fragment() {
         _binding?.btnSaveAlert?.setOnClickListener{
 
             if(validateForm()) {
-                _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+                _binding?.loader?.myLoader?.visibility = View.VISIBLE
+                _binding?.btnSelectImage?.visibility = View.GONE
+                _binding?.btnOpenMaps?.visibility = View.GONE
 
                 val newAlert = CreateAlertRequest(
                     eventDescription =  _binding?.eventDescription?.text.toString(),
@@ -206,7 +205,7 @@ class CreateAlertFragment  : Fragment() {
                     latitude = latitude,
                     longitude = longitude
                 )
-                System.out.println(image)
+
                viewModel.store(newAlert,image)
             }
         }
@@ -311,13 +310,23 @@ class CreateAlertFragment  : Fragment() {
             if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
                 takeImage()
             }else{
-                requireActivity().requestPermissions(
-                    arrayOf(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    ), REQUEST_PERMISSION_CAMERA
-                )
+                if(ActivityCompat.shouldShowRequestPermissionRationale(
+                        requireActivity(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )){
+                    Toast.makeText(requireContext(),"Los permisos estan desactivados. Ve ajustes del teléfono y activa los permisos.", Toast.LENGTH_LONG).show()
+                }else{
+                    requireActivity().requestPermissions(
+                        arrayOf(
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        ), REQUEST_PERMISSION_CAMERA
+                    )
+
+                }
+
+
             }
         }else{
             takeImage()
@@ -330,12 +339,20 @@ class CreateAlertFragment  : Fragment() {
             if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 getFile()
             }else{
-                requireActivity().requestPermissions(
-                    arrayOf(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    ), REQUEST_PERMISSION_FILE
-                )
+                if(ActivityCompat.shouldShowRequestPermissionRationale(
+                        requireActivity(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )){
+                    Toast.makeText(requireContext(),"Ve ajustes de teléfono y activa los permisos", Toast.LENGTH_LONG).show()
+                }else{
+                    requireActivity().requestPermissions(
+                        arrayOf(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        ), REQUEST_PERMISSION_FILE
+                    )
+                }
+
             }
         }else{
             getFile()

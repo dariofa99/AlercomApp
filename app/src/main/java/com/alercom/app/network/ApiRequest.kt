@@ -11,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 private var context : Context? = null
 
 val  BASE_ROOT = "http://18.220.203.127/"
+val BASE_PRODUCTION = "https://api.alercom.org/"
 val  BASE_LOCAL_ROOT = "http://10.0.2.2:4200/"
 val interceptor:HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
     this.level = HttpLoggingInterceptor.Level.BODY
@@ -23,7 +24,7 @@ val cliente:OkHttpClient = OkHttpClient.Builder().apply {
 
 
 val retrofit =  Retrofit.Builder()
-    .baseUrl(BASE_LOCAL_ROOT)
+    .baseUrl(BASE_PRODUCTION)
     .client(cliente)
     .addConverterFactory(GsonConverterFactory.create())
     .addCallAdapterFactory(CoroutineCallAdapterFactory())

@@ -34,14 +34,28 @@
 
             <TextView
                 android:textColor="@color/black"
+                android:id="@+id/lblUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Admin User"
+                android:textSize="13sp">
+
+            </TextView>
+            <TextView
+                android:textColor="@color/black"
                 android:id="@+id/lblLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="left"
                 android:text="Pasto-Nariño"
-                android:textSize="20sp">
+
+                android:textSize="14sp">
 
             </TextView>
+
+
+
 
             <LinearLayout
                 android:background="@drawable/card_alerts_item"
@@ -105,7 +119,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="right|bottom"
                             android:text="Mayo 5 - 2020"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             tools:ignore="RtlHardcoded" />
 
 

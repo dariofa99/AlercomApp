@@ -10,17 +10,17 @@ import com.google.gson.annotations.SerializedName
 
 data class User(
     var id              : Int?              = null,
-           var name            : String?           = null,
-         var lastname        : String?           = null,
-          var username        : String?           = null,
-           var email           : String?           = null,
-            var phoneNumber        : String?           = null,
-         var emailVerifiedAt : String?          = null,
-                  var address : String?           = null,
-                   var townId          : Int?             = null,
-             var statusId          : Int?             = null,
-          var createdAt       : String?           = null,
-            var updatedAt       : String?           = null,
+    var name            : String?           = null,
+    var lastname        : String?           = null,
+    var username        : String?           = null,
+    var email           : String?           = null,
+    var phoneNumber        : String?           = null,
+    var emailVerifiedAt : String?          = null,
+    var address : String?           = null,
+    var townId          : Int?             = null,
+    var statusId          : Int?             = null,
+    var createdAt       : String?           = null,
+    var updatedAt       : String?           = null,
          //  @SerializedName("permissions"       ) var permissions     : ArrayList<String> = arrayListOf(),
          //  @SerializedName("roles"             ) var roles           : ArrayList<Roles>  = arrayListOf()
     )

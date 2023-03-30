@@ -27,7 +27,7 @@ class UserRepository {
 
                 }
                 if(response.code() == 403){
-                    val error = ErrorResponse("Sesión expirada, vuleve a iniciar sesión")
+                    val error = ErrorResponse("Sesión expirada, vuelve a iniciar sesión")
                     callback.unautorize(error)
 
                 }

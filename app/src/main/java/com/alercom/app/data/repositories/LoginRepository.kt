@@ -61,15 +61,22 @@ class LoginRepository {
                     )
                   //  appDatabase.getLoginDao().insertUser(us)
                     response.body()?.accessToken?.let { prefs.saveToken(it) }
-                    System.out.println(response.body()?.authUser?.roles?.isEmpty())
-                    prefs.saveUserName(response.body()?.authUser?.name)
-                    prefs.can(!response.body()?.authUser?.roles?.isEmpty()!!)
-                    val resp = Result.Success(response)
-                    callback.auth(resp)
+                    prefs.canChangeStatus(false)
+                    if(response.body()?.authUser?.roles?.size!! > 0){
+                        for (permission in response.body()?.authUser?.roles?.get(0)!!.permissions){
+                            if(permission.name!!.equals("cambiar_estado_alerta")){
+                                prefs.canChangeStatus(true)
+                                break
+                            }
+                        }
+                    }
 
+                    prefs.saveUserName(response.body()?.authUser?.name)
+                    val resp = response.body()?.authUser!!
+                    callback.auth(resp)
                     setLoggedInUser(response)
                 }
-                if(response.code() == 400  ){
+                if(response.code() == 201  ){
                     val error = ErrorResponse("Error en las credenciales")
                     callback.unautorize(error)
                 }
@@ -99,9 +106,9 @@ class LoginRepository {
                 if(response.code() == 200){
                     response.body()?.accessToken?.let { prefs.saveToken(it) }
                     prefs.saveUserName(response.body()?.authUser?.username)
-                    val resp = com.alercom.app.data.Result.Success(response)
-                    callback.auth(resp)
-                    setLoggedInUser(response)
+                    val resp = response.body()?.authUser
+                    callback.auth(resp!!)
+                    //setLoggedInUser(response)
                 }
                 if(response.code() == 400  ){
                     val error = ErrorResponse("Error en las credenciales")

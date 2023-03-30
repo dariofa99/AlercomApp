@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.alercom.app.R
@@ -65,6 +66,9 @@ class MapViewFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMyLocationBut
         Places.initialize(requireContext(),getString(R.string.google_api_key))
         _binding?.btnAsignar?.setOnClickListener {
             val intent = Intent()
+            System.out.println(latLng?.latitude)
+            System.out.println(latLng?.longitude)
+            System.out.println("**********************************************************")
             intent.putExtra(LATITUDE,latLng?.latitude)
             intent.putExtra(LONGITUDE,latLng?.longitude)
             intent.putExtra(ADDRESS,address)
@@ -122,13 +126,18 @@ class MapViewFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMyLocationBut
             val newMarquer = MarkerOptions().position(it).title("$address")
             createMarquer(newMarquer)
         }
+        if(b!=null && b.getString("view").toString()=="show"){
+            _binding?.btnAsignar?.visibility = View.GONE
+            _binding?.contentButtos?.visibility = View.GONE
+        }
 
         if(b!=null && b.getDouble("latitude")!=0.0 && b.getDouble("longitude")!=0.0){
             latLng = LatLng(b.getDouble("latitude"), b.getDouble("longitude"))
             address = b.getString("address")
-            val newMarquer = MarkerOptions().position(latLng!!).title("$address")
+             val newMarquer = MarkerOptions().position(latLng!!).title("$address")
               createMarquer(newMarquer)
         }else{
+
             if (ActivityCompat.checkSelfPermission(
                     requireContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -145,6 +154,8 @@ class MapViewFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMyLocationBut
                         createMarquer(newMarquer)
                     }
             }
+
+
         }
 
 
@@ -198,6 +209,33 @@ class MapViewFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMyLocationBut
 
     }
 
+    private var locationPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()){
+            isGranted ->
+            if(isGranted){
+                val b : Bundle? = requireActivity().intent.extras
+                if(b!=null && b.getDouble("latitude")!=0.0 && b.getDouble("longitude")!=0.0){
+                    latLng = LatLng(b.getDouble("latitude"), b.getDouble("longitude"))
+                    address = b.getString("address")
+                    val newMarquer = MarkerOptions().position(latLng!!).title("$address")
+                    createMarquer(newMarquer)
+                }else{
+                    fusedLocationClient.lastLocation
+                        .addOnSuccessListener { location : Location? ->
+                            latLng = LatLng(location?.latitude!!, location?.longitude!!)
+                            address = getAddress(latLng!!)
+                            val newMarquer = MarkerOptions().position(latLng!!).title("$address")
+                            createMarquer(newMarquer)
+                        }
+                }
+
+
+                map.isMyLocationEnabled = true
+            }else{
+
+            }
+
+    }
+
     private fun enableLocation(){
         if(!::map.isInitialized) return
         if (ActivityCompat.checkSelfPermission(
@@ -210,7 +248,7 @@ class MapViewFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMyLocationBut
         ) {
             map.isMyLocationEnabled = true
         }else{
-            requestLocationPermission()
+            locationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
 
 
@@ -221,13 +259,13 @@ class MapViewFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMyLocationBut
                 requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             )){
-            Toast.makeText(requireContext(),"Ve ajustes", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),"Ve ajustes y activa los permisos", Toast.LENGTH_LONG).show()
         }else{
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
-
+                    Manifest.permission.ACCESS_COARSE_LOCATION
                     ), REQUEST_CODE_LOCATION
             )
 
@@ -241,16 +279,10 @@ class MapViewFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMyLocationBut
     ) {
         when(requestCode){
             REQUEST_CODE_LOCATION -> if(grantResults.isNotEmpty() && grantResults[0]== PackageManager.PERMISSION_GRANTED){
-                if (ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
+
                     map.isMyLocationEnabled = true
-                }
+
+
 
             }else{
                 Toast.makeText(requireContext(),"Ve ajustes y acepta los permisos", Toast.LENGTH_LONG).show()

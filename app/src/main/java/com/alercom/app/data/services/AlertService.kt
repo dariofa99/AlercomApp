@@ -2,10 +2,11 @@ package com.alercom.app.data.services
 
 
 import com.alercom.app.request.CreateAlertRequest
-
+import com.alercom.app.resources.paginator.Paginator
 import com.alercom.app.response.alerts.edit.EditAlertResponse
 import com.alercom.app.response.alerts.list.ListAlertResponse
 import com.alercom.app.response.alerts.update.UpdateAlertResponse
+
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -21,10 +22,14 @@ interface AlertService {
     @POST("api/v1/events")
     fun storeWithOuImage(@Body eventAlertRequest: CreateAlertRequest): Call<UpdateAlertResponse>
     @GET("api/v1/events")
-    fun index(@Query("data") data:String): Call<ListAlertResponse>
+    fun index(@Query("data") data: String,@Query("page") page: Int): Call<Paginator>
 
     @GET("api/v1/events/{alert_id}/edit")
     fun edit(@Path("alert_id") alert_id: Int?): Call<EditAlertResponse>
+
+    @DELETE("api/v1/events/{alert_id}")
+    fun delete(@Path("alert_id") alert_id: Int?): Call<UpdateAlertResponse>
+
 
     @Multipart
     @POST("api/v1/events/{id}")

@@ -3,6 +3,39 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/drawable/button_login.xml" value="0.1925" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/drawable/card_item.xml" value="0.1885" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/drawable/ic_baseline_add_task_24.xml" value="0.16" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/drawable/ic_baseline_arrow_back_44.xml" value="0.1235" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/drawable/item_card.xml" value="0.167" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout-v26/item_event_type.xml" value="0.2" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout-w936dp/activity_main.xml" value="0.1" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/action_bar_toolbar.xml" value="0.2" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/activity_main.xml" value="0.184375" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/create_alert_fragment.xml" value="0.33" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/create_user_fragment.xml" value="0.33" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/edit_alert_fragment.xml" value="0.22" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/edit_user_fragment.xml" value="0.184375" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/event_category_fragment.xml" value="0.1" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/fragment_institutional_route_page.xml" value="0.1513467293715263" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/fragment_map_view.xml" value="0.1" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/fragment_place_auto_complete.xml" value="0.184375" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/fragment_privacy_policy.xml" value="0.25" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/fragment_use_alercom.xml" value="0.19692307692307692" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/institutional_route_fragment.xml" value="0.2" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/item_alert_list.xml" value="0.184375" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/item_event_type.xml" value="0.33" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/item_event_type_show.xml" value="0.184375" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/item_institution_contact.xml" value="0.2" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/item_institutional_route.xml" value="0.19692307692307692" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/item_range_spinner.xml" value="0.19692307692307692" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/item_town_spinner.xml" value="0.19692307692307692" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/item_type_event_spinner.xml" value="0.19692307692307692" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/list_alert_fragment.xml" value="0.25" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/loading.xml" value="0.25" />
+        <entry key="..\:/Apps/Android/AlercomApp/app/src/main/res/layout/main_fragment.xml" value="0.19692307692307692" />
         <entry key="..\:/Nueva carpeta (3)/AlercomApp/app/src/main/res/layout/create_alert_fragment.xml" value="0.1" />
         <entry key="..\:/Users/gluis/AndroidStudioProjects/AlercomApp/app/src/main/res/drawable/buttom_main.xml" value="0.1" />
         <entry key="..\:/Users/gluis/AndroidStudioProjects/AlercomApp/app/src/main/res/drawable/button_main.xml" value="0.159" />

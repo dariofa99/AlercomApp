@@ -1,6 +1,5 @@
 package com.alercom.app.data.repositories
 
-import com.alercom.app.data.model.Alert
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -10,35 +9,41 @@ import retrofit2.Response
 import java.io.File
 import com.alercom.app.network.retrofit
 import com.alercom.app.request.CreateAlertRequest
-
+import com.alercom.app.data.services.AlertService
+import com.alercom.app.resources.paginator.Paginator
+import com.alercom.app.response.ErrorResponse
 import com.alercom.app.response.alerts.create.OnUpdateAlertResult
 import com.alercom.app.response.alerts.edit.EditAlertResponse
 import com.alercom.app.response.alerts.edit.OnEditAlertResult
 import com.alercom.app.response.alerts.list.ListAlertResponse
 import com.alercom.app.response.alerts.list.OnListAlertResult
 import com.alercom.app.response.alerts.update.UpdateAlertResponse
-import com.alercom.app.data.services.AlertService
 
 
 class AlertRepository {
 
-    fun index(data: String?, callback: OnListAlertResult) {
+    fun index(data: String?, page: Int, callback: OnListAlertResult) {
         val service = retrofit.create<AlertService>(AlertService::class.java)
-        val call =  service.index(data!!)
-        call.enqueue(object: Callback<ListAlertResponse> {
+        val call =  service.index(data!!,page)
+        call.enqueue(object: Callback<Paginator> {
             override fun onResponse(
-                call: Call<ListAlertResponse>,
-                response: Response<ListAlertResponse>
+                call: Call<Paginator>,
+                response: Response<Paginator>
             ) {
 
 
-                val alerts : ArrayList<Alert>? = response.body()?.events
+
                 if(response.code() == 200){
-                    System.out.println("Aqui si ${response.body()?.events}")
-                    callback.success(alerts)
+                    val paginator : Paginator = response.body()!!
+                    callback.success(paginator)
+                }
+                if(response.code() == 403){
+                    val error = ErrorResponse("Sesión expirada, vuelve a ingresar")
+                    callback.unautorize(error)
+
                 }
             }
-            override fun onFailure(call: Call<ListAlertResponse>, t: Throwable) {
+            override fun onFailure(call: Call<Paginator>, t: Throwable) {
 
             }
         })
@@ -47,7 +52,7 @@ class AlertRepository {
 
 
       fun store(eventReport: CreateAlertRequest, imageFile:File?, callback : OnUpdateAlertResult) {
-          var call :Call<UpdateAlertResponse>
+          val call :Call<UpdateAlertResponse>
           val service = retrofit.create<AlertService>(AlertService::class.java)
           call = if(imageFile!=null){
               val requestBody : RequestBody = RequestBody.create(MediaType.parse("image/*"),imageFile)
@@ -84,10 +89,46 @@ class AlertRepository {
                 call: Call<EditAlertResponse>,
                 response: Response<EditAlertResponse>
             ) {
-                callback.success(response.body()?.event)
+
+                if(response.code() == 200){
+                    callback.success(response.body()?.event)
+                }
+
+                if(response.code() == 403){
+                    val error = ErrorResponse("Sesión expirada, vuelve a iniciar sesión")
+                    callback.unautorize(error)
+
+                }
             }
 
             override fun onFailure(call: Call<EditAlertResponse>, t: Throwable) {
+
+            }
+
+        })
+    }
+
+    fun delete(alertId: Int, callback: OnUpdateAlertResult) {
+        val service = retrofit.create<AlertService>(AlertService::class.java)
+        val call =  service.delete(alertId)
+        call.enqueue(object: Callback<UpdateAlertResponse> {
+            override fun onResponse(
+                call: Call<UpdateAlertResponse>,
+                response: Response<UpdateAlertResponse>
+            ) {
+
+                if(response.code() == 200){
+                    callback.success(response.body()?.event)
+                }
+
+                if(response.code() == 403){
+                    val error = ErrorResponse("Sesión expirada, vuelve a iniciar sesión")
+                    callback.unautorize(error)
+
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateAlertResponse>, t: Throwable) {
 
             }
 
@@ -110,7 +151,9 @@ class AlertRepository {
         call.enqueue(object: Callback<UpdateAlertResponse> {
             override fun onResponse(call: Call<UpdateAlertResponse>, response: Response<UpdateAlertResponse>
             ) {
+                System.out.println("Joder ${response.body()}")
                 if(response.code() == 200){
+                    System.out.println("Joder ${response.body()?.event}")
                     callback.success(response.body()?.event)
                 }
 

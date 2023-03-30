@@ -20,19 +20,15 @@ import com.alercom.app.adapter.TypeEventAdapter
 import com.alercom.app.data.model.Alert
 import com.alercom.app.data.model.EventType
 import com.alercom.app.data.model.Reference
-import com.alercom.app.databinding.EditAlertFragmentBinding
+
 import com.alercom.app.databinding.ShowEventFragmentBinding
 import com.alercom.app.request.CreateAlertRequest
 import com.alercom.app.resources.MapViewFragment
 import com.alercom.app.resources.MapsActivity
 import com.alercom.app.ui.alerts.edit.EditAlertFragmentArgs
-import com.alercom.app.ui.alerts.edit.EditAlertViewModel
-import com.alercom.app.ui.alerts.edit.EditAlertViewModelFactory
+
 import com.app.alercom.adapter.AffectsRangeSpinnerAdapter
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
-import kotlinx.android.synthetic.main.edit_user_fragment.*
-import kotlinx.android.synthetic.main.loading.*
 import java.io.File
 
 class ShowEventFragment : Fragment() {
@@ -72,7 +68,7 @@ class ShowEventFragment : Fragment() {
         viewModel.edit(args.alertId)
         _binding?.toolbar?.apply {
             textTooblar.text = "Actualizando alerta"
-            toolbar.btn_Back.setOnClickListener {
+            btnBack.setOnClickListener {
                 findNavController().navigateUp()
             }
         }
@@ -81,6 +77,7 @@ class ShowEventFragment : Fragment() {
             intent.putExtra("latitude",latitude)
             intent.putExtra("longitude",longitude)
             intent.putExtra("address",alert?.eventPlace)
+            intent.putExtra("view","show")
             setMapsValue.launch(intent)
         }
 
@@ -97,7 +94,7 @@ class ShowEventFragment : Fragment() {
                 })
                 .setPositiveButton("Si, aceptar", DialogInterface.OnClickListener() {
                         dialogInterface: DialogInterface, i: Int ->
-                    _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+                    _binding?.loader?.apply { myLoader.visibility = View.VISIBLE }
                     val newAlert = fillAlert(13)
                     viewModel.update(alert?.id!!,newAlert,image)
                 })
@@ -117,7 +114,7 @@ class ShowEventFragment : Fragment() {
                 })
                 .setPositiveButton("Si, denegar", DialogInterface.OnClickListener() {
                         dialogInterface: DialogInterface, i: Int ->
-                    _binding?.loader.apply { myLoader.visibility = View.VISIBLE }
+                    _binding?.loader?.apply { myLoader.visibility = View.VISIBLE }
                     val newAlert = fillAlert(12)
                     viewModel.update(alert?.id!!,newAlert,image)
                 })
@@ -138,8 +135,8 @@ class ShowEventFragment : Fragment() {
 
             if (eventResult.success != null) {
                 alert = eventResult.success
-                _binding?.eventTitle?.text = alert?.eventType?.eventTypeName
-                _binding?.eventGeneralDescription?.text = alert?.eventType?.eventTypeDescription
+                _binding?.eventTitle?.text = alert?.eventType?.category?.referenceName
+                _binding?.eventGeneralDescription?.text = alert?.eventType?.category?.referenceDescription
                 _binding?.eventDescription?.setText(alert?.eventDescription)
                 _binding?.eventDate?.setText(alert?.eventDate)
                 _binding?.eventPlace?.setText(alert?.eventPlace)
@@ -194,14 +191,14 @@ class ShowEventFragment : Fragment() {
                     _binding?.btnAcceptEvent?.visibility = View.GONE
                     _binding?.btnCancelEvent?.visibility = View.GONE
                 }
-                _binding?.loader.apply { myLoader.visibility = View.GONE }
+                _binding?.loader?.apply { myLoader.visibility = View.GONE }
             }
         })
 
         viewModel.alertUpdateResult.observe(this@ShowEventFragment, Observer {
             val alertUpdateResult = it ?: return@Observer
             if (alertUpdateResult.success != null) {
-                _binding?.loader.apply { myLoader.visibility = View.GONE }
+                _binding?.loader?.apply { myLoader.visibility = View.GONE }
                 showMessage("Alerta actualizada con éxito")
                 findNavController().navigateUp()
             }

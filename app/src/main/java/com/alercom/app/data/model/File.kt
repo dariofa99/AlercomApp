@@ -1,5 +1,6 @@
 package com.alercom.app.data.model
 
+
 import com.alercom.app.response.alerts.list.Pivot
 import com.google.gson.annotations.SerializedName
 

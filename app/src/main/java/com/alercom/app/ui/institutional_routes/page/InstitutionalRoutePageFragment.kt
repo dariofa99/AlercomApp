@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alercom.app.databinding.FragmentInstitutionalRoutePageBinding
-import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
-import kotlinx.android.synthetic.main.edit_user_fragment.*
-import kotlinx.android.synthetic.main.fragment_institutional_route_page.*
-import kotlinx.android.synthetic.main.fragment_institutional_route_page.toolbar
+
 
 class InstitutionalRoutePageFragment : Fragment() {
 
@@ -40,7 +38,7 @@ class InstitutionalRoutePageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding?.toolbar?.apply {
             textTooblar.text = args.namePage
-            toolbar.btn_Back.setOnClickListener {
+            btnBack.setOnClickListener {
                 findNavController().navigateUp()
             }
         }
@@ -51,11 +49,16 @@ class InstitutionalRoutePageFragment : Fragment() {
 
         }
 
-        
-        val setting:WebSettings = _binding?.myWebView!!?.settings
-        setting.javaScriptEnabled = true
+        _binding?.myWebView?.setLayerType(View.LAYER_TYPE_SOFTWARE,null)
 
-        args?.url?.let { myWebView.loadUrl(it) }
+        val setting:WebSettings = _binding?.myWebView!!.settings
+        setting.javaScriptEnabled = true
+        setting.loadWithOverviewMode = true
+        setting.useWideViewPort = true
+        args?.url?.let {
+            _binding?.myWebView?.loadUrl(it)
+        }
+
 
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner,object :OnBackPressedCallback(true){

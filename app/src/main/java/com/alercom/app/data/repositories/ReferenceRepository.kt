@@ -15,6 +15,7 @@ import com.alercom.app.response.references.dynamic.OnDynamicReferenceResponse
 import com.alercom.app.response.references.statics.StaticReferenceResponse
 import com.alercom.app.response.references.towns.TownResponse
 import com.alercom.app.data.services.ReferenceService
+import com.alercom.app.response.ErrorResponse
 
 
 class ReferenceRepository {
@@ -89,8 +90,10 @@ class ReferenceRepository {
                 if(response.code() == 200){
                     callback.success(reference)
                 }
-                if(response.code() == 200){
-                    callback.success(reference)
+                if(response.code() == 403){
+                    val error = ErrorResponse("Sesión expirada, vuelve a iniciar sesión")
+                    callback.unautorize(error)
+
                 }
             }
             override fun onFailure(call: Call<DynamicReferenceResponse>, t: Throwable) {

@@ -22,7 +22,7 @@ class InstitutionalRouteViewModel(private val institutionalRoutesRepository: Ins
             }
 
             override fun unautorize(errorResponse: ErrorResponse) {
-
+                _institutionalRouteResult.value = InstitutionalRouteResult(unautorize = errorResponse)
             }
 
             override fun error(errorResponse: ErrorResponse) {

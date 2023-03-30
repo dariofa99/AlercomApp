@@ -9,6 +9,7 @@
     <include
         android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
         />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -72,7 +73,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="Sel. Tipo de evento"
-                            android:inputType="none"/>
+                            android:inputType="none" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -86,13 +87,13 @@
                         app:startIconDrawable="@drawable/ic_baseline_announcement_24">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/eventDescription"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:boxBackgroundMode="outline"
-                            android:id="@+id/eventDescription"
                             android:inputType="textMultiLine"
-                            android:minHeight="100dp" />
+                            android:minHeight="100dp"
+                            app:boxBackgroundMode="outline" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -109,10 +110,10 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:boxBackgroundMode="outline"
                             android:clickable="false"
                             android:focusable="false"
-                            android:inputType="date" />
+                            android:inputType="date"
+                            app:boxBackgroundMode="outline" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -126,12 +127,12 @@
                         app:startIconDrawable="@drawable/ic_baseline_place_24">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/eventPlace"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:boxBackgroundMode="outline"
-                            android:id="@+id/eventPlace"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            app:boxBackgroundMode="outline" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -146,6 +147,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -162,7 +164,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
                             android:text="@string/personas"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <Switch
                             android:id="@+id/affectedPeople"
@@ -178,6 +180,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -193,7 +196,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
                             android:text="@string/familias"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <Switch
                             android:id="@+id/affectedFamily"
@@ -208,6 +211,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -239,6 +243,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -271,6 +276,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -303,6 +309,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal"
                         tools:ignore="UseSwitchCompatOrMaterialXml">
 
@@ -321,7 +328,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
                             android:text="Medio ambiente"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <Switch
                             android:id="@+id/affectedEnviroment"
@@ -346,7 +353,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="Sel. Rango de afectaciones"
-                            android:inputType="none"/>
+                            android:inputType="none" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -392,9 +399,10 @@
         </LinearLayout>
     </ScrollView>
 
-    <include
-        android:id="@+id/loader"
-        layout="@layout/loading" />
+
+
+
+
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="50dp"
@@ -455,5 +463,8 @@
 
 
 
+    <include
+        android:id="@+id/loader"
+        layout="@layout/loading" />
 
 </RelativeLayout>

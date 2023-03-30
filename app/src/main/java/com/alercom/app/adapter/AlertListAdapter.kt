@@ -28,6 +28,9 @@ class AlertListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemAlertListBinding.bind(view)
     fun render(alert: Alert, onClickListener: (Alert) ->Unit){
+        binding.lblUsername.text = "${alert.user?.name} ${alert.user?.lastname}"
+        binding.lblLocation.text = "${alert.town?.townName}-${alert.town?.department?.referenceName}"
+
         binding.lblDescription.text = if(alert.eventDescription?.length!! > 80) {
             "${alert.eventDescription?.substring(1, 80)}..."
         }else{

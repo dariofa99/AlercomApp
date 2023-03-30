@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.use.AlercomUseFragment">
+
+    <include
+        android:id="@+id/toolbar" layout="@layout/action_bar_toolbar"
+        />
+
+    <ScrollView
+        android:paddingBottom="20dp"
+        android:layout_marginTop="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textAlignment="textStart"
+            android:justificationMode="inter_word"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:text="@string/alercom_use_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerEventType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:text="Para mas información puedes llamar:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/recyclerInstitutionalContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/loader"
+        layout="@layout/loading" />
+
+</FrameLayout>

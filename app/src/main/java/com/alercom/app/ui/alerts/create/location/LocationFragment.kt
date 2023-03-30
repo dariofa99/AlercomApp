@@ -18,8 +18,7 @@ import com.alercom.app.data.model.Town
 import com.alercom.app.databinding.LocationFragmentBinding
 import com.app.alercom.adapter.DeparmentsSpinnerAdapter
 import com.app.alercom.adapter.TownsSpinnerAdapter
-import kotlinx.android.synthetic.main.action_bar_toolbar.view.*
-import kotlinx.android.synthetic.main.edit_user_fragment.*
+
 
 class LocationFragment : Fragment(), AdapterView.OnItemClickListener {
 
@@ -84,7 +83,7 @@ class LocationFragment : Fragment(), AdapterView.OnItemClickListener {
         viewModel = ViewModelProvider(this, LocationViewModelFactory())[LocationViewModel::class.java]
         _binding?.toolbar?.apply {
             textTooblar.text = "Creando alerta"
-            toolbar.btn_Back.setOnClickListener {
+            btnBack?.setOnClickListener {
                 findNavController().navigateUp()
             }
         }

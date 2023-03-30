@@ -13,6 +13,7 @@ import com.alercom.app.response.alerts.create.OnUpdateAlertResult
 import com.alercom.app.response.alerts.create.UpdateAlertResult
 import com.alercom.app.response.alerts.edit.EditAlertResult
 import com.alercom.app.response.alerts.edit.OnEditAlertResult
+
 import java.io.File
 
 class ShowEventViewModel(private val affectsRangeRepository: ReferenceRepository,
@@ -23,7 +24,6 @@ class ShowEventViewModel(private val affectsRangeRepository: ReferenceRepository
     val eventResult: LiveData<EditAlertResult> = _eventResult
     private val _alertUpdateResult = MutableLiveData<UpdateAlertResult>()
     val alertUpdateResult: LiveData<UpdateAlertResult> = _alertUpdateResult
-
     fun edit(alertId:Int)  {
 
         alertRepository.edit(alertId = alertId,object : OnEditAlertResult {

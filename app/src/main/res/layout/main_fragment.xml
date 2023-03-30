@@ -96,7 +96,7 @@
                 android:background="@drawable/button_main"
                 android:text="Rutas institucionales"
                 android:textAlignment="center"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 app:icon="@drawable/ic_baseline_local_library_24"
                 app:iconSize="17pt" />
 
@@ -115,9 +115,37 @@
                 app:iconSize="17pt"
                 tools:ignore="RtlSymmetry" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAlercomUse"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/button_main"
+                android:text="@string/alercom_use"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                app:icon="@drawable/ic_baseline_device_unknown_24"
+                app:iconSize="17pt"
+                tools:ignore="RtlSymmetry" />
+
 
         </LinearLayout>
     </ScrollView>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnSendWM"
+        android:backgroundTint="@color/whatsapp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="72dp"
+        app:icon="@drawable/whatsapp24"/>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
@@ -128,8 +156,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:icon="@android:drawable/ic_lock_power_off">
-
-    </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+        app:icon="@android:drawable/ic_lock_power_off"/>
 
 </RelativeLayout>

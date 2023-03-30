@@ -6,9 +6,9 @@ import com.alercom.app.response.auth.AuthUser
 class Prefs(val context: Context) {
     val SHARED_NAME = "acToken"
     val SHARED_TOKEN = "acToken"
-    val SHARED_CAN = "userCan"
+    val CANCHANGESTATUS = "userCan"
     val SHARED_USERNAME = "userName"
-    val SHARED_AUTH :AuthUser? = null
+    val ACCEPTED_PRIVACY_POLICY = "accepted_privacy_policy"
 
     val storage = context.getSharedPreferences(SHARED_NAME,0)
 
@@ -16,8 +16,8 @@ class Prefs(val context: Context) {
         storage.edit().putString(SHARED_TOKEN,token).apply()
     }
 
-    fun can(can:Boolean){
-        storage.edit().putBoolean(SHARED_CAN,can).apply()
+    fun canChangeStatus(can:Boolean){
+        storage.edit().putBoolean(CANCHANGESTATUS,can).apply()
     }
 
     fun saveUserName(userName: String?){
@@ -27,8 +27,8 @@ class Prefs(val context: Context) {
     fun getToken():String{
        return storage.getString(SHARED_TOKEN,"").toString()
     }
-    fun getCan():Boolean{
-        return storage.getBoolean(SHARED_CAN,false)
+    fun canChangeStatus():Boolean{
+        return storage.getBoolean(CANCHANGESTATUS,false)
     }
     fun getUserName():String{
         return storage.getString(SHARED_USERNAME,"").toString()
@@ -38,9 +38,13 @@ class Prefs(val context: Context) {
         storage.edit().clear().apply()
     }
 
-   /* fun saveAuth(auth: AuthUser?){
-        //storage.edit().putString(SHARED_AUTH,auth).apply()
-    }*/
+    fun setPrivacyPolicy(auth: Boolean){
+        storage.edit().putBoolean(ACCEPTED_PRIVACY_POLICY,auth).apply()
+    }
+
+    fun getPrivacyPolicy() : Boolean{
+        return storage.getBoolean(ACCEPTED_PRIVACY_POLICY,false)
+    }
 
 }
 
